@@ -154,7 +154,7 @@ impl Render for AboutView {
                                                     .child(
                                                         div()
                                                             .font_weight(FontWeight::BOLD)
-                                                            .text_size(theme.text(Text::Normal))
+                                                            .text_size(theme.text(Text::Body))
                                                             .text_color(theme.foreground)
                                                             .child("Azka Hafidzha Putra Septo"),
                                                     )
@@ -180,6 +180,7 @@ impl Render for AboutView {
                                             .child(div().text_color(theme.muted_foreground).child("GitHub"))
                                             .child(
                                                 div()
+                                                    .id("about-link-github")
                                                     .font_weight(FontWeight::MEDIUM)
                                                     .text_color(theme.primary)
                                                     .cursor_pointer()
@@ -195,6 +196,7 @@ impl Render for AboutView {
                                             .child(div().text_color(theme.muted_foreground).child("Instagram"))
                                             .child(
                                                 div()
+                                                    .id("about-link-instagram")
                                                     .font_weight(FontWeight::MEDIUM)
                                                     .text_color(theme.primary)
                                                     .cursor_pointer()

@@ -755,7 +755,7 @@ impl FullscreenView {
     fn pill(&self, cx: &mut Context<Self>) -> impl IntoElement {
         let theme = *cx.theme();
         let frosted = ambient::shown(cx);
-        let gap = px(PILL_GAP);
+        let _gap = px(PILL_GAP);
         let linger = cx.listener(|this: &mut Self, hovering: &bool, _, cx| {
             this.over_pill = *hovering;
             if *hovering {
