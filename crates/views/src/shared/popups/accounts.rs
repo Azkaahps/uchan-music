@@ -72,7 +72,7 @@ impl RenderOnce for AccountPicker {
                             .gap_3()
                             .w_full()
                             .p_2()
-                            .rounded(theme.radius)
+                            .rounded_none()
                             .border_1()
                             .border_color(theme.border)
                             .cursor_pointer()

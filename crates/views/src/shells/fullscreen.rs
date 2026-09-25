@@ -773,7 +773,7 @@ impl FullscreenView {
                 .icon(icon)
                 .tooltip_above(hint)
                 .selected(showing)
-                .rounded(theme.radius)
+                .rounded_none()
                 .tint(match showing {
                     true => theme.foreground,
                     false => theme.muted_foreground,
@@ -788,7 +788,7 @@ impl FullscreenView {
             .child(
                 TabBar::new("fullscreen-pill-bar")
                     .when(frosted, TabBar::blurred)
-                    .rounded(theme.radius + gap)
+                    .rounded_none()
                     .items([
                         tab(
                             "fullscreen-artwork-tab",
@@ -891,7 +891,7 @@ impl FullscreenView {
                             .justify_center()
                             .p_1()
                             .py_2()
-                            .rounded(theme.radius)
+                            .rounded_none()
                             .border_1()
                             .border_color(theme.border)
                             .on_scroll_wheel(cx.listener(Self::turn_volume))

@@ -183,7 +183,7 @@ pub fn perched(button: Button, cx: &App) -> Div {
                 button
                     .ghost()
                     .small()
-                    .rounded_full()
+                    .rounded_none()
                     .border_1()
                     .border_color(theme.border),
             ),

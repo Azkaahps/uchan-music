@@ -44,12 +44,8 @@ impl Rounding {
     }
 
     pub fn radius(self) -> Pixels {
-        match self {
-            Self::Square => px(0.),
-            Self::Subtle => px(6.),
-            Self::Rounded => px(10.),
-            Self::Round => px(20.),
-        }
+        // Uchan Music: unborder-radius design — all variants return zero
+        px(0.)
     }
 }
 

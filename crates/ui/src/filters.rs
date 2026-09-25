@@ -327,7 +327,7 @@ impl RenderOnce for RangeScrubber {
                     .relative()
                     .w_full()
                     .h(line)
-                    .rounded_full()
+                    .rounded_none()
                     .bg(empty)
                     .when(measured, |this| {
                         this.child(
@@ -359,7 +359,7 @@ fn handle(left: Pixels, line: Pixels, pin: Pixels, thumb: Hsla) -> impl IntoElem
         .top((line - pin) / 2.)
         .left(left)
         .size(pin)
-        .rounded_full()
+        .rounded_none()
         .bg(thumb)
 }
 

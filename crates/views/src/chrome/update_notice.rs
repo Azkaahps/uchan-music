@@ -50,7 +50,7 @@ impl Render for UpdateNotice {
             .flex_col()
             .gap_2()
             .p(theme.metrics.pad)
-            .rounded(theme.radius)
+            .rounded_none()
             .border_1()
             .border_color(theme.border)
             .shadow_md()

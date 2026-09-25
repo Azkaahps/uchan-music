@@ -74,7 +74,7 @@ impl RenderOnce for Radio {
             .items_center()
             .justify_center()
             .size(side)
-            .rounded_full()
+            .rounded_none()
             .border_1();
         let dot = match animates {
             true => dot
@@ -87,7 +87,7 @@ impl RenderOnce for Radio {
                             .child(
                                 div()
                                     .size(hole)
-                                    .rounded_full()
+                                    .rounded_none()
                                     .bg(mix(hole_was, hole_is, t)),
                             )
                     },
@@ -96,7 +96,7 @@ impl RenderOnce for Radio {
             false => dot
                 .bg(fill_is)
                 .border_color(edge_is)
-                .child(div().size(hole).rounded_full().bg(hole_is))
+                .child(div().size(hole).rounded_none().bg(hole_is))
                 .into_any_element(),
         };
 

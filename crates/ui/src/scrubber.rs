@@ -247,7 +247,7 @@ impl RenderOnce for Scrubber {
                 .relative()
                 .h_full()
                 .w(line)
-                .rounded_full()
+                .rounded_none()
                 .bg(empty)
                 .child(
                     div()
@@ -255,7 +255,7 @@ impl RenderOnce for Scrubber {
                         .bottom_0()
                         .left_0()
                         .w_full()
-                        .rounded_full()
+                        .rounded_none()
                         .bg(filled)
                         .map(|this| match centered {
                             true => this.h(pin / 2. + travel * fraction),
@@ -274,7 +274,7 @@ impl RenderOnce for Scrubber {
                                 }
                             })
                             .size(pin)
-                            .rounded_full()
+                            .rounded_none()
                             .bg(thumb),
                     )
                 })
@@ -299,7 +299,7 @@ impl RenderOnce for Scrubber {
                             .child(
                                 div()
                                     .px_1p5()
-                                    .rounded_md()
+                                    .rounded_none()
                                     .bg(popover)
                                     .border_1()
                                     .border_color(popover_border)
@@ -314,12 +314,12 @@ impl RenderOnce for Scrubber {
                 .relative()
                 .w_full()
                 .h(line)
-                .rounded_full()
+                .rounded_none()
                 .bg(empty)
                 .child(
                     div()
                         .h_full()
-                        .rounded_full()
+                        .rounded_none()
                         .bg(filled)
                         .map(|this| match centered {
                             true => this.w(pin / 2. + travel * fraction),
@@ -336,7 +336,7 @@ impl RenderOnce for Scrubber {
                                 false => this.left(relative(fraction)).ml(Pixels::ZERO - pin / 2.),
                             })
                             .size(pin)
-                            .rounded_full()
+                            .rounded_none()
                             .bg(thumb),
                     )
                 })
@@ -362,7 +362,7 @@ impl RenderOnce for Scrubber {
                             .child(
                                 div()
                                     .px_1p5()
-                                    .rounded_md()
+                                    .rounded_none()
                                     .bg(popover)
                                     .border_1()
                                     .border_color(popover_border)

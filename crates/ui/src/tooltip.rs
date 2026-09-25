@@ -87,7 +87,7 @@ impl Render for Tooltip {
                 div()
                     .px_2()
                     .py_1()
-                    .rounded(theme.radius)
+                    .rounded_none()
                     .border_1()
                     .border_color(theme.border)
                     .bg(theme.popover)

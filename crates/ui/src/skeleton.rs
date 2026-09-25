@@ -57,8 +57,8 @@ impl RenderOnce for Skeleton {
 
         let mut skeleton = base.bg(theme.muted).when_else(
             circle,
-            |this| this.rounded_full(),
-            |this| this.rounded(theme.radius),
+            |this| this.rounded_none(),
+            |this| this.rounded_none(),
         );
         skeleton.style().refine(&overrides);
 
@@ -126,7 +126,7 @@ impl RenderOnce for Initials {
             .items_center()
             .justify_center()
             .size(size)
-            .rounded_full()
+            .rounded_none()
             .bg(theme.secondary)
             .text_size(size * 0.34)
             .text_color(theme.muted_foreground)

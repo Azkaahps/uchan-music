@@ -260,7 +260,7 @@ impl SongView {
                             .gap_3()
                             .px(theme.metrics.pad)
                             .py(theme.metrics.pad / 2.)
-                            .rounded(theme.radius)
+                            .rounded_none()
                             .child(avatar)
                             .child(
                                 div()
@@ -290,7 +290,7 @@ impl SongView {
                                 .id(("song-credit", index))
                                 .cursor_pointer()
                                 .hover(|style| style.bg(theme.secondary_hover))
-                                .rounded(theme.radius)
+                                .rounded_none()
                                 .link(Destination::Artist(id.into()))
                                 .into_any_element(),
                             None => row.into_any_element(),
@@ -355,7 +355,7 @@ impl SongView {
                                                     .truncate()
                                                     .px_3()
                                                     .py_1()
-                                                    .rounded_full()
+                                                    .rounded_none()
                                                     .bg(theme.secondary)
                                                     .border_1()
                                                     .border_color(theme.border)
@@ -389,7 +389,7 @@ impl SongView {
                 .min_w(PANEL)
                 .flex_1()
                 .p(theme.metrics.pad)
-                .rounded(theme.radius)
+                .rounded_none()
                 .border_1()
                 .border_color(theme.border)
                 .child(Skeleton::new().w(FACT_SKELETON).h(theme.metrics.pad))

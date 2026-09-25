@@ -751,7 +751,7 @@ fn hint(cx: &App) -> AnyElement {
         .mx_2()
         .px_2()
         .py_1()
-        .rounded(theme.radius)
+        .rounded_none()
         .border_1()
         .border_dashed()
         .border_color(theme.sidebar_border)

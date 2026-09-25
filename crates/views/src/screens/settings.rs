@@ -3822,7 +3822,7 @@ impl SettingsView {
                         .gap_3()
                         .px(theme.metrics.pad)
                         .py(theme.metrics.pad / 2.)
-                        .rounded(theme.radius)
+                        .rounded_none()
                         .cursor_pointer()
                         .hover(|style| style.bg(theme.secondary_hover))
                         .on_click(move |_, _, cx| cx.open_url(member.profile))
@@ -3999,7 +3999,7 @@ fn card(card: AccountCard, cx: &App) -> impl IntoElement {
         .flex_col()
         .gap_3()
         .p(theme.metrics.pad)
-        .rounded(theme.radius)
+        .rounded_none()
         .border_1()
         .border_color(theme.border)
         .when_some(press, |this, press| {

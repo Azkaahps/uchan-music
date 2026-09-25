@@ -276,7 +276,7 @@ impl Render for Ambient {
                                     .left(px((grown - stepped) / 2.))
                                     .top(px((grown - stepped) / 2.))
                                     .size(px(stepped))
-                                    .rounded_full()
+                                    .rounded_none()
                                     .bg(shaded(color).opacity(opacity))
                             }))
                     })),

@@ -246,10 +246,7 @@ impl Render for Input {
             true => theme.metrics.control_small,
             false => theme.metrics.field,
         };
-        let radius = match self.tucked {
-            true => crate::tucked(theme.radius, window),
-            false => theme.radius,
-        };
+        let radius = px(0.);
 
         let empty = self.selected_range.is_empty();
         let paste = cx

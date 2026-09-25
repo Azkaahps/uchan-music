@@ -4,7 +4,7 @@ use std::rc::Rc;
 use gpui::prelude::*;
 use gpui::{
     AnyElement, App, Div, ElementId, Entity, FontWeight, Global, MouseButton, Pixels, Point,
-    ScrollWheelEvent, SharedString, StyleRefinement, Window, anchored, deferred, div, point,
+    ScrollWheelEvent, SharedString, StyleRefinement, Window, anchored, deferred, div, point, px,
 };
 
 use crate::button::Button;
@@ -288,6 +288,6 @@ impl RenderOnce for Modal {
 
 /// The dialog's corner radius for a theme radius: `ROUNDING` times it, capped at what the Rounded
 /// setting gives.
-fn corners(radius: Pixels) -> Pixels {
-    (radius * ROUNDING).min(Rounding::Rounded.radius() * ROUNDING)
+fn corners(_radius: Pixels) -> Pixels {
+    px(0.)
 }

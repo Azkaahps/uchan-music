@@ -111,7 +111,7 @@ impl RenderOnce for Toast {
             .py(theme.metrics.pad)
             .pl(theme.metrics.pad * 2)
             .pr(theme.metrics.pad)
-            .rounded(theme.radius)
+            .rounded_none()
             .border_1()
             .shadow_md()
             .border_color(theme.border)

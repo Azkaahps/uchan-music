@@ -22,7 +22,7 @@ use std::{collections::HashMap, sync::Arc};
 const FILE_PREFIX: &str = "file://";
 
 const FALLBACK_ICON: &str = "icons/music.svg";
-pub(crate) const ROUNDED: Pixels = px(4.);
+pub(crate) const ROUNDED: Pixels = px(0.);
 /// What the cache trims back to. It is allowed past this while a scroll pulls covers
 /// in, and only trims once it crosses `CACHE_CEILING`, since a trim asks every window
 /// to redraw and is worth doing in one batch rather than a cover at a time.

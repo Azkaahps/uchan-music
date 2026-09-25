@@ -39,7 +39,7 @@ impl RenderOnce for ExplicitBadge {
             .text_xs()
             .text_color(theme.muted_foreground)
             .bg(theme.muted)
-            .rounded_xs()
+            .rounded_none()
             .child("E");
         badge.style().refine(&overrides);
         badge

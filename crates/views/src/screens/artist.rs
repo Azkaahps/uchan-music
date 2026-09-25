@@ -738,7 +738,7 @@ impl ArtistView {
 
         div()
             .w_full()
-            .rounded(theme.radius)
+            .rounded_none()
             .border_1()
             .border_color(theme.border)
             .overflow_hidden()
@@ -793,7 +793,7 @@ impl ArtistView {
             .child(match self.detail.read(cx).is_loading() {
                 true => self.tracks_loading(cx),
                 false => table(&self.table)
-                    .rounded(theme.radius)
+                    .rounded_none()
                     .border_1()
                     .border_color(theme.border)
                     .into_any_element(),

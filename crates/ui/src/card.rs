@@ -373,7 +373,7 @@ impl RenderOnce for Card {
                                     .icon(glyph)
                                     .tooltip(hint)
                                     .size(size)
-                                    .rounded_full()
+                                    .rounded_none()
                                     .fill(play_fill.background.opacity(PLAY_FILL), play_fill.hover)
                                     .tint(play_fill.foreground)
                                     .when(blurring(cx), |button| button.backdrop_blur(GLASS_BLUR))
@@ -490,7 +490,7 @@ impl RenderOnce for Card {
                 |this| this.flex_col().gap_2().w(art),
                 |this| this.items_center().gap_3().px(inset),
             )
-            .rounded(theme.radius)
+            .rounded_none()
             .when(listed, |this| {
                 this.flex_none().h(height).py(inset).w_full().min_w_0()
             })

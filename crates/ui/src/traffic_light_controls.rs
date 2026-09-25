@@ -133,7 +133,7 @@ impl RenderOnce for TrafficLightControls {
                     .items_center()
                     .justify_center()
                     .size(DOT)
-                    .rounded_full()
+                    .rounded_none()
                     .bg(control.dot())
                     .cursor_pointer()
                     .occlude()

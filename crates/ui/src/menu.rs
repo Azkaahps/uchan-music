@@ -670,7 +670,7 @@ impl RenderOnce for Menu {
             .collect();
         let bounds_guards = dismiss_guards.clone();
         let viewport_width = window.viewport_size().width;
-        let tucked = crate::metrics::tucked(theme.radius, window);
+        let tucked = px(0.);
 
         let keys = search.map(|search| Keys {
             search,
@@ -1005,7 +1005,7 @@ impl RenderOnce for Menu {
             .flex()
             .flex_col()
             .p_1()
-            .rounded(theme.radius)
+            .rounded(px(0.))
             .border_1()
             .gap_1()
             .border_color(theme.border)
@@ -1039,7 +1039,7 @@ impl RenderOnce for Menu {
                     div()
                         .absolute()
                         .inset_0()
-                        .rounded(theme.radius)
+                        .rounded(px(0.))
                         .backdrop_blur(GLASS_BLUR)
                         .fading("menu-frost"),
                 )

@@ -77,7 +77,7 @@ impl RenderOnce for InfoCard {
             .when(stretch, |this| this.h_full())
             .gap_4()
             .p_5()
-            .rounded(theme.radius)
+            .rounded_none()
             .when(!borderless, |this| {
                 this.border_1().border_color(theme.border)
             })
@@ -153,7 +153,7 @@ impl RenderOnce for Fact {
             .min_w_0()
             .px(theme.metrics.pad)
             .py(theme.metrics.pad / 2.)
-            .rounded(theme.radius)
+            .rounded_none()
             .when(striped, |this| this.bg(theme.table_hover.opacity(0.35)))
             .child(
                 div()

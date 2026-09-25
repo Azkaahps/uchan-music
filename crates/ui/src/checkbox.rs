@@ -82,7 +82,7 @@ impl RenderOnce for Checkbox {
         } = self;
         let theme = *cx.theme();
         let side = px((theme.metrics.control_small / px(1.) * SCALE).round());
-        let radius = theme.radius.min(side / 3.);
+        let radius = px(0.);
         let overrides = std::mem::take(base.style());
 
         let (box_was, box_is) = match checked {

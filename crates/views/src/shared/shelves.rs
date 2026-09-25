@@ -77,7 +77,7 @@ impl Shelves {
                         Skeleton::new()
                             .w(HEADING)
                             .h(theme.text(Text::Large))
-                            .rounded(theme.radius),
+                            .rounded_none(),
                     )
                     .child(div().flex().w_full().gap_4().overflow_hidden().children(
                         (0..layout.columns).map(|place| {

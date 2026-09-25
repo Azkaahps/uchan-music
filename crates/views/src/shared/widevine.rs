@@ -121,7 +121,7 @@ impl Render for WidevinePrompt {
                         modal.child(
                             div()
                                 .p(theme.metrics.pad)
-                                .rounded(theme.radius)
+                                .rounded_none()
                                 .border_1()
                                 .border_color(theme.border)
                                 .bg(theme.secondary)

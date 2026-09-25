@@ -104,7 +104,7 @@ impl RenderOnce for Notice {
             .min_w_0()
             .max_w(REACH)
             .p(theme.metrics.pad * 1.5)
-            .rounded(theme.radius)
+            .rounded_none()
             .border_1()
             .border_color(theme.border)
             .bg(theme.secondary.opacity(0.45))

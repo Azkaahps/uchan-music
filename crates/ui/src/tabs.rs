@@ -274,7 +274,7 @@ impl RenderOnce for TabBar {
             .relative()
             .flex()
             .p_1()
-            .rounded(theme.radius)
+            .rounded_none()
             .bg(theme.secondary)
             .border_1()
             .border_color(theme.border)

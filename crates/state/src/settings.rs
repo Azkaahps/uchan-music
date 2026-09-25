@@ -515,7 +515,7 @@ impl Default for Appearance {
             visualizer: true,
             visualizer_style: ui::VisualizerStyle::default().id().to_owned(),
             icons: icons::BASE.to_owned(),
-            rounding: Rounding::Rounded.id().to_owned(),
+            rounding: Rounding::Square.id().to_owned(),
             blur: true,
             blur_window: true,
             font_size: DEFAULT_FONT_SIZE,

@@ -620,7 +620,7 @@ impl Render for Scrollbar {
                     .right(THUMB_INSET + REACH)
                     .w(BAR)
                     .h(thumb)
-                    .rounded_full()
+                    .rounded_none()
                     .bg(theme.muted_foreground.opacity(resting))
                     .hover(move |style| style.bg(theme.muted_foreground.opacity(ACTIVE)))
                     .cursor_pointer()

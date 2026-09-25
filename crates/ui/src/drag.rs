@@ -34,7 +34,7 @@ pub fn drop_marker(edge: Edge, cx: &App) -> Div {
         .left_2()
         .right_2()
         .h(MARKER)
-        .rounded_full()
+        .rounded_none()
         .bg(cx.theme().primary);
 
     match edge {
@@ -98,7 +98,7 @@ impl RenderOnce for Ghost {
             true => Avatar::new(self.cover.clone()).size(ART).into_any_element(),
             false => Artwork::new(self.cover.clone())
                 .size(ART)
-                .corner_radius(theme.radius)
+                .corner_radius(px(0.))
                 .when_some(self.fallback.clone(), Artwork::fallback)
                 .into_any_element(),
         });
@@ -111,7 +111,7 @@ impl RenderOnce for Ghost {
             .max_w(CHIP)
             .px_2()
             .py_1()
-            .rounded(theme.radius)
+            .rounded_none()
             .bg(theme.secondary)
             .text_color(theme.foreground)
             .children(leading)

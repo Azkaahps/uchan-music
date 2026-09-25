@@ -194,7 +194,7 @@ impl RenderOnce for WindowControls {
                     .when_else(
                         is_windows,
                         |this| this.h_full().aspect_square().rounded_none(),
-                        |this| this.size(BUTTON).rounded(theme.radius).cursor_pointer(),
+                        |this| this.size(BUTTON).rounded_none().cursor_pointer(),
                     )
                     .occlude()
                     .window_control_area(control.area())

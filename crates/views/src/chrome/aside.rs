@@ -1155,7 +1155,7 @@ impl Aside {
                         .w_full()
                         .max_w(reach)
                         .px_2()
-                        .rounded(theme.radius)
+                        .rounded_none()
                         .cursor_pointer()
                         .when(notes_touch.warmth > 0., |this| {
                             this.bg(theme.table_hover.opacity(notes_touch.warmth))
@@ -1363,7 +1363,7 @@ impl Aside {
                         .px_2()
                         .py_1()
                         .when(traded, |this| this.mt_2())
-                        .rounded(theme.radius)
+                        .rounded_none()
                         .cursor_pointer()
                         .when(warmth > 0., |this| {
                             this.bg(theme.table_hover.opacity(warmth))
