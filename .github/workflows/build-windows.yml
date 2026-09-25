@@ -1,0 +1,98 @@
+name: Build Windows
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: build-windows-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_PROFILE_RELEASE_STRIP: symbols
+  RUST_BACKTRACE: 1
+  RUSTC_WRAPPER: sccache
+  SCCACHE_GHA_ENABLED: "true"
+
+jobs:
+  build:
+    name: ${{ matrix.target }}
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: x86_64-pc-windows-msvc
+            os: windows-latest
+            arch: x64compatible
+            setup: UchanMusic-Setup
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - uses: mozilla-actions/sccache-action@v0.0.9
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: ${{ matrix.target }}
+          cache-targets: false
+          cache-on-failure: true
+
+      - name: build
+        run: cargo build --release --locked --package uchan-music --target ${{ matrix.target }}
+
+      - name: sccache stats
+        if: always()
+        run: sccache --show-stats
+
+      - name: stage executable
+        shell: bash
+        env:
+          TARGET: ${{ matrix.target }}
+        run: |
+          mkdir -p dist
+          cp "target/$TARGET/release/uchan-music.exe" "dist/uchan-music-${GITHUB_SHA:0:7}-$TARGET.exe"
+
+      - name: install Inno Setup
+        shell: pwsh
+        run: choco install innosetup --yes --no-progress
+
+      - name: build installer
+        shell: pwsh
+        env:
+          TARGET: ${{ matrix.target }}
+          UCHAN_ARCH: ${{ matrix.arch }}
+          UCHAN_SETUP: ${{ matrix.setup }}
+        run: |
+          $env:UCHAN_VERSION  = "0.1.0-dev.$($env:GITHUB_SHA.Substring(0,7))"
+          $env:UCHAN_EXE      = (Resolve-Path "target/$env:TARGET/release/uchan-music.exe").Path
+          $env:UCHAN_DIST     = (Resolve-Path "dist").Path
+          & "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" "scripts/windows/uchan-music.iss"
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: uchan-music-windows-${{ matrix.target }}
+          path: dist/*
+          if-no-files-found: error
+
+      - name: create or update rolling release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: nightly
+          name: "Nightly Build"
+          body: |
+            Automated Windows build from commit ${{ github.sha }}
+
+            Built by GitHub Actions on push to `main`.
+            Created by AzkaaHPS.
+          prerelease: true
+          files: dist/*
+          token: ${{ secrets.GITHUB_TOKEN }}
