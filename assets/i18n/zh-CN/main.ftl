@@ -619,6 +619,7 @@ settings-source-detail = 此构建对应的源代码
 settings-source-view = 打开仓库
 settings-team = 团队
 settings-team-github = GitHub
+settings-role-creator = Created by AzkaaHPS
 settings-role-lead-maintainer = 首席维护者
 settings-role-maintainer = 维护者
 settings-role-contributor = 贡献者

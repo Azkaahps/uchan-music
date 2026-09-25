@@ -751,6 +751,7 @@ settings-source-detail = Исходный код, соответствующий
 settings-source-view = Открыть репозиторий
 settings-team = Команда
 settings-team-github = GitHub
+settings-role-creator = Created by AzkaaHPS
 settings-role-lead-maintainer = Ведущий разработчик
 settings-role-maintainer = Разработчик
 settings-role-contributor = Контрибьютор

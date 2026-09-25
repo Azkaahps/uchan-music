@@ -121,7 +121,7 @@ impl ksni::Tray for Item {
                 .shown
                 .as_ref()
                 .map(|shown| shown.caption.clone())
-                .unwrap_or_default(),
+                .unwrap_or_else(|| "Created by AzkaaHPS".to_owned()),
             ..Default::default()
         }
     }

@@ -577,6 +577,7 @@ settings-source-detail = このビルドの対応ソース
 settings-source-view = リポジトリを開く
 settings-team = チーム
 settings-team-github = GitHub
+settings-role-creator = Created by AzkaaHPS
 settings-role-lead-maintainer = リードメンテナー
 settings-role-maintainer = メンテナー
 settings-role-contributor = コントリビューター

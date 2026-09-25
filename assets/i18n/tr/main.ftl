@@ -602,6 +602,7 @@ settings-source-detail = Bu yapıya karşılık gelen kaynak
 settings-source-view = Depoyu aç
 settings-team = Ekip
 settings-team-github = GitHub
+settings-role-creator = Created by AzkaaHPS
 settings-role-lead-maintainer = Baş Bakımcı
 settings-role-maintainer = Bakımcı
 settings-role-contributor = Katkıda Bulunan

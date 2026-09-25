@@ -727,6 +727,7 @@ settings-source-detail = Burimi përkatës për këtë ndërtim
 settings-source-view = Hap depon
 settings-team = Ekipi
 settings-team-github = GitHub
+settings-role-creator = Created by AzkaaHPS
 settings-role-lead-maintainer = Mirëmbajtës kryesor
 settings-role-maintainer = Mirëmbajtës
 settings-role-contributor = Kontribues

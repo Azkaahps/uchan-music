@@ -619,6 +619,7 @@ settings-source-detail = O código-fonte correspondente a esta compilação
 settings-source-view = Abrir o repositório
 settings-team = Equipe
 settings-team-github = GitHub
+settings-role-creator = Created by AzkaaHPS
 settings-role-lead-maintainer = Mantenedor Principal
 settings-role-maintainer = Mantenedor
 settings-role-contributor = Contribuidor

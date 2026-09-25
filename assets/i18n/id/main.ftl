@@ -619,6 +619,7 @@ settings-source-detail = Sumber kode yang sesuai untuk build ini
 settings-source-view = Buka repositori
 settings-team = Tim
 settings-team-github = GitHub
+settings-role-creator = Created by AzkaaHPS
 settings-role-lead-maintainer = Pemelihara Utama
 settings-role-maintainer = Pemelihara
 settings-role-contributor = Kontributor

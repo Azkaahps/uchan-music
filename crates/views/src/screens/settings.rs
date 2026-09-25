@@ -246,6 +246,7 @@ struct Member {
 
 #[derive(Clone, Copy)]
 enum Role {
+    Creator,
     LeadMaintainer,
     Maintainer,
     Contributor,
@@ -254,6 +255,7 @@ enum Role {
 impl Role {
     fn label(self) -> SharedString {
         match self {
+            Self::Creator => t!("settings-role-creator"),
             Self::LeadMaintainer => t!("settings-role-lead-maintainer"),
             Self::Maintainer => t!("settings-role-maintainer"),
             Self::Contributor => t!("settings-role-contributor"),
@@ -272,7 +274,8 @@ macro_rules! member {
     };
 }
 
-const MEMBERS: [Member; 5] = [
+const MEMBERS: [Member; 6] = [
+    member!("Azkaahps", Role::Creator),
     member!("nolight132", Role::LeadMaintainer),
     member!("zxsleebu", Role::Maintainer),
     member!("fx-got", Role::Maintainer),
