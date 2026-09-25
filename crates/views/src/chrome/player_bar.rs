@@ -237,6 +237,28 @@ impl PlayerBar {
             .on_click(|_, window, cx| window.dispatch_action(Box::new(ToggleFullscreen), cx))
     }
 
+    fn lossless_button(&self, cx: &mut Context<Self>) -> impl IntoElement {
+        let lossless = self.settings.read(cx).lossless();
+        Button::new("player-lossless")
+            .small()
+            .outline()
+            .label(match lossless {
+                true => "FLAC 1411k",
+                false => "LOSSLESS",
+            })
+            .selected(lossless)
+            .tooltip_above(match lossless {
+                true => "player-lossless-on",
+                false => "player-lossless-off",
+            })
+            .on_click(cx.listener(|this, _, _, cx| {
+                let current = this.settings.read(cx).lossless();
+                this.settings.update(cx, |settings, cx| {
+                    settings.set_lossless(!current, cx);
+                });
+            }))
+    }
+
     fn now_playing(&self, room: bool, window: &Window, cx: &mut Context<Self>) -> impl IntoElement {
         let theme = cx.theme();
         let muted = theme.muted_foreground;
@@ -245,6 +267,7 @@ impl PlayerBar {
         let track = self.playback.read(cx).track().cloned();
         let cover = track.as_ref().and_then(|track| track.cover.clone());
         let explicit = track.as_ref().is_some_and(|track| track.explicit);
+        let lossless = self.settings.read(cx).lossless();
         let like = like(track.clone(), cx);
 
         div()
@@ -318,6 +341,21 @@ impl PlayerBar {
                                 })
                                 .when(explicit, |this| {
                                     this.child(div().flex_none().child(ExplicitBadge::new()))
+                                })
+                                .when(lossless && track.is_some(), |this| {
+                                    this.child(
+                                        div()
+                                            .flex_none()
+                                            .px_1p5()
+                                            .py_0p5()
+                                            .border_1()
+                                            .border_color(theme.border)
+                                            .bg(theme.secondary)
+                                            .text_size(theme.text(ui::Text::Tiny))
+                                            .font_weight(FontWeight::BOLD)
+                                            .text_color(theme.primary)
+                                            .child("LOSSLESS"),
+                                    )
                                 })
                                 .child(like),
                         )
@@ -471,6 +509,7 @@ impl Render for PlayerBar {
                         .gap_3()
                         .w_full()
                         .child(div().flex_1().min_w_0().child(seek))
+                        .child(self.lossless_button(cx))
                         .children(sides)
                         .child(self.sound(px(VOLUME_TIGHT), cx))
                         .child(self.fullscreen_button()),
@@ -499,6 +538,7 @@ impl Render for PlayerBar {
                         .gap_2()
                         .flex_1()
                         .min_w_0()
+                        .child(self.lossless_button(cx))
                         .children(sides)
                         .child(self.sound(px(VOLUME_WIDTH), cx))
                         .child(self.fullscreen_button()),

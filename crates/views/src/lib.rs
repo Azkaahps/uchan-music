@@ -5,6 +5,7 @@ mod shared;
 mod shells;
 
 pub use root::Root;
+use screens::about::AboutView;
 use screens::artist::ArtistView;
 use screens::detail::DetailView;
 use screens::genre::GenreView;

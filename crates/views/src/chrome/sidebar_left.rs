@@ -24,7 +24,7 @@ use crate::shared::menus::{ItemMenu, item_menu};
 /// The one drag list the pinned section keeps, so a pin dropped anywhere in it lands in order.
 const PINS: &str = "sidebar-pins";
 
-const NAV: [(Option<NavEntry>, &str, Destination); 6] = [
+const NAV: [(Option<NavEntry>, &str, Destination); 7] = [
     (Some(NavEntry::Home), "icons/house.svg", Destination::Home),
     (
         Some(NavEntry::Search),
@@ -50,6 +50,11 @@ const NAV: [(Option<NavEntry>, &str, Destination); 6] = [
         None,
         "icons/settings.svg",
         Destination::Settings(SettingsTab::General),
+    ),
+    (
+        Some(NavEntry::About),
+        "icons/info.svg",
+        Destination::About,
     ),
 ];
 

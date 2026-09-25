@@ -158,6 +158,7 @@ enum Slot {
     #[cfg(any(target_os = "windows", target_os = "linux", target_os = "freebsd"))]
     WindowRounding,
     AdaptiveMenu,
+    Lossless,
     Normalisation,
     Gapless,
     Sleep,
@@ -594,6 +595,7 @@ impl SettingsView {
             SettingsTab::Playback => {
                 let mut slots = vec![
                     Slot::Title("settings-tab-general"),
+                    Slot::Lossless,
                     Slot::Normalisation,
                     Slot::Gapless,
                     Slot::Sleep,
@@ -731,6 +733,10 @@ impl SettingsView {
             Slot::AdaptiveMenu => (
                 t!("settings-adaptive-menu"),
                 t!("settings-adaptive-menu-detail"),
+            ),
+            Slot::Lossless => (
+                t!("settings-lossless"),
+                t!("settings-lossless-detail"),
             ),
             Slot::Normalisation => (
                 t!("settings-normalisation"),
@@ -938,6 +944,7 @@ impl SettingsView {
             #[cfg(any(target_os = "windows", target_os = "linux", target_os = "freebsd"))]
             Slot::WindowRounding => self.window_rounding_row(cx).element,
             Slot::AdaptiveMenu => self.adaptive_menu_row(cx).element,
+            Slot::Lossless => self.lossless_row(cx).element,
             Slot::Normalisation => self.playback_row(cx).element,
             Slot::Gapless => self.gapless_row(cx).element,
             Slot::Sleep => self.sleep_row(cx).element,
@@ -1972,6 +1979,26 @@ impl SettingsView {
             muted,
             small,
             picker.into_any_element(),
+        )
+    }
+
+    fn lossless_row(&self, cx: &mut Context<Self>) -> Setting {
+        let theme = *cx.theme();
+        let muted = theme.muted_foreground;
+        let small = theme.text(Text::Small);
+        let on = self.settings.read(cx).lossless();
+
+        self.row(
+            t!("settings-lossless"),
+            t!("settings-lossless-detail"),
+            muted,
+            small,
+            Switch::new("lossless", on)
+                .on_click(cx.listener(move |this, _, _, cx| {
+                    this.settings
+                        .update(cx, |settings, cx| settings.set_lossless(!on, cx));
+                }))
+                .into_any_element(),
         )
     }
 

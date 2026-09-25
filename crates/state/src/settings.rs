@@ -267,6 +267,7 @@ struct Held {
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(default)]
 struct Values {
+    lossless: bool,
     normalisation: bool,
     gapless: bool,
     equalizer: bool,
@@ -351,6 +352,7 @@ struct Appearance {
 impl Default for Values {
     fn default() -> Self {
         Self {
+            lossless: true,
             normalisation: false,
             gapless: true,
             equalizer: false,
@@ -636,6 +638,10 @@ impl AppSettings {
 
     pub fn normalisation(&self) -> bool {
         self.values.normalisation
+    }
+
+    pub fn lossless(&self) -> bool {
+        self.values.lossless
     }
 
     pub fn gapless(&self) -> bool {
@@ -980,6 +986,11 @@ impl AppSettings {
 
     pub fn set_normalisation(&mut self, normalisation: bool, cx: &mut Context<Self>) {
         self.values.normalisation = normalisation;
+        self.schedule_save(cx);
+    }
+
+    pub fn set_lossless(&mut self, lossless: bool, cx: &mut Context<Self>) {
+        self.values.lossless = lossless;
         self.schedule_save(cx);
     }
 

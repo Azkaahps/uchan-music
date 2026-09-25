@@ -7371,46 +7371,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "uchan-music"
-version = "0.39.0"
-dependencies = [
- "anyhow",
- "dirs",
- "embed",
- "env_logger",
- "futures",
- "gpui",
- "gpui_platform",
- "i18n",
- "icons",
- "image",
- "input",
- "interprocess",
- "ksni",
- "libc",
- "log",
- "music",
- "objc2 0.6.4",
- "objc2-app-kit 0.3.2",
- "raw-window-handle",
- "reqwest 0.13.4",
- "resvg",
- "router",
- "rustls 0.23.43",
- "sha2",
- "state",
- "storage",
- "tokio",
- "tray-icon",
- "ui",
- "views",
- "widestring",
- "windows 0.62.2",
- "windows-sys 0.61.2",
- "winresource",
-]
-
-[[package]]
 name = "souvlaki"
 version = "0.8.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -8611,6 +8571,46 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b6f5e870be6c3b371b77fe0ee0bafb859fa4964b4404c27de1d380043c4dda20"
 
 [[package]]
+name = "uchan-music"
+version = "0.39.0"
+dependencies = [
+ "anyhow",
+ "dirs",
+ "embed",
+ "env_logger",
+ "futures",
+ "gpui",
+ "gpui_platform",
+ "i18n",
+ "icons",
+ "image",
+ "input",
+ "interprocess",
+ "ksni",
+ "libc",
+ "log",
+ "music",
+ "objc2 0.6.4",
+ "objc2-app-kit 0.3.2",
+ "raw-window-handle",
+ "reqwest 0.13.4",
+ "resvg",
+ "router",
+ "rustls 0.23.43",
+ "sha2",
+ "state",
+ "storage",
+ "tokio",
+ "tray-icon",
+ "ui",
+ "views",
+ "widestring",
+ "windows 0.62.2",
+ "windows-sys 0.61.2",
+ "winresource",
+]
+
+[[package]]
 name = "uds_windows"
 version = "1.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -8969,6 +8969,7 @@ dependencies = [
  "gpui",
  "i18n",
  "icons",
+ "image",
  "input",
  "jiff",
  "log",

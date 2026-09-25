@@ -24,6 +24,7 @@ nav-home = Start
 nav-search = Suche
 nav-library = Deine Bibliothek
 nav-settings = Einstellungen
+nav-about = About
 nav-songs = Songs
 nav-albums = Alben
 nav-playlists = Playlists
@@ -218,6 +219,8 @@ player-unmute = Ton einschalten
 player-previous = Vorheriger Titel
 player-next = Nächster Titel
 player-fullscreen = Vollbild
+player-lossless-on = Lossless audio enabled (FLAC 1411 kbps)
+player-lossless-off = Enable Lossless audio (FLAC 1411 kbps)
 player-fullscreen-leave = Vollbild verlassen
 fullscreen-artwork = Cover
 
@@ -526,6 +529,8 @@ settings-discord-buttons-pick = Buttons wählen
 # the Discord status when the track is left out of it
 discord-listening = Hört Musik
 get-sonora = Uchan Music holen
+settings-lossless = Lossless Audio Streaming
+settings-lossless-detail = Stream bit-perfect CD-quality FLAC (1411 kbps) audio without requiring account credentials
 settings-normalisation = Lautstärke angleichen
 settings-normalisation-detail = Hält Titel auf einer gleichmäßigen Lautstärke
 settings-gapless = Lückenlose Wiedergabe

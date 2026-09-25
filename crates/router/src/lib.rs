@@ -24,16 +24,18 @@ pub enum NavEntry {
     History,
     Local,
     Pins,
+    About,
 }
 
 impl NavEntry {
-    pub const ALL: [Self; 6] = [
+    pub const ALL: [Self; 7] = [
         Self::Home,
         Self::Search,
         Self::Library,
         Self::History,
         Self::Local,
         Self::Pins,
+        Self::About,
     ];
 
     pub fn id(self) -> &'static str {
@@ -44,6 +46,7 @@ impl NavEntry {
             Self::History => "history",
             Self::Local => "local",
             Self::Pins => "sidebar-pins",
+            Self::About => "about",
         }
     }
 
@@ -55,6 +58,7 @@ impl NavEntry {
             Self::History => "nav-history",
             Self::Local => "nav-local",
             Self::Pins => "nav-pinned",
+            Self::About => "nav-about",
         }
     }
 }
@@ -198,6 +202,7 @@ pub enum Destination {
     Genre(SharedString),
     Search,
     Settings(SettingsTab),
+    About,
     Fullscreen,
 }
 

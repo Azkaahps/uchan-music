@@ -1,3 +1,4 @@
+pub(crate) mod about;
 pub(crate) mod artist;
 pub(crate) mod detail;
 pub(crate) mod genre;

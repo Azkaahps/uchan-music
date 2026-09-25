@@ -23,7 +23,7 @@ use crate::shared::tracks::{LIBRARY_COLUMNS, album_columns};
 use crate::shells::Shell;
 use crate::shells::workspace::Workspace;
 use crate::{
-    Adaptive, ArtistView, DetailView, FullscreenView, GenreView, HistoryView, HomeView,
+    AboutView, Adaptive, ArtistView, DetailView, FullscreenView, GenreView, HistoryView, HomeView,
     LibraryView, LoginView, SettingsView, SongView, UserView,
 };
 
@@ -48,6 +48,7 @@ struct Screens {
     genre_detail: Option<Entity<GenreDetails>>,
     settings: Entity<SettingsView>,
     settings_header: Entity<SettingsHeader>,
+    about: Entity<AboutView>,
 }
 
 struct Shells {
@@ -267,6 +268,7 @@ impl Root {
                 genre_detail: None,
                 settings,
                 settings_header,
+                about: cx.new(|cx| AboutView::new(cx)),
             },
             adaptive,
             ambient,
@@ -556,6 +558,7 @@ impl Root {
                 header = Some(self.screens.settings_header.clone().into());
                 self.screens.settings.clone().into()
             }
+            Destination::About => self.screens.about.clone().into(),
         };
 
         self.toolbar = toolbar;
