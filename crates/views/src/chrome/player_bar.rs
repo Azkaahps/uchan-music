@@ -4,7 +4,7 @@ use ui::ActiveTheme as _;
 
 use gpui::prelude::*;
 use gpui::{
-    AnyElement, Context, Entity, MouseButton, MouseDownEvent, MouseMoveEvent, MouseUpEvent, Pixels,
+    AnyElement, Context, Entity, FontWeight, MouseButton, MouseDownEvent, MouseMoveEvent, MouseUpEvent, Pixels,
     Point, Render, ScrollWheelEvent, SharedString,
 };
 use gpui::{Window, div, px};
