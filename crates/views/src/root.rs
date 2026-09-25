@@ -9,7 +9,7 @@ use router::{Destination, NavigationEvent, SettingsTab, back, forward, navigate}
 use state::{
     ArtistDetail, Detail, GenreDetails, Genres, Home, Io, Library, Network, Playback, Profile,
     Queue, Reconnected, SYSTEM_FONT, Scan, Search, Session, SessionState, Shelf, SideTab,
-    SongDetail, Sonora,
+    SongDetail, UchanMusic,
 };
 #[cfg(any(target_os = "linux", target_os = "freebsd"))]
 use ui::WindowFrame;
@@ -145,7 +145,7 @@ impl Root {
         let io = Io::global(cx);
         let home_state = cx.new(|cx| Home::new(library.clone(), session.clone(), io.clone(), cx));
         let home = cx.new(|cx| HomeView::new(home_state, playback.clone(), cx));
-        let history = Sonora::global(cx).history.clone();
+        let history = UchanMusic::global(cx).history.clone();
         let history = cx.new(|cx| HistoryView::new(history, playback.clone(), window, cx));
 
         let search_library = library.clone();
@@ -195,7 +195,7 @@ impl Root {
             if !window.is_window_active() {
                 return;
             }
-            let settings = Sonora::global(cx).settings.clone();
+            let settings = UchanMusic::global(cx).settings.clone();
             let (stillness, pace) = {
                 let settings = settings.read(cx);
                 (settings.stillness(), settings.pace())
@@ -209,7 +209,7 @@ impl Root {
 
         window
             .observe_window_appearance(|_, cx| {
-                let settings = Sonora::global(cx).settings.clone();
+                let settings = UchanMusic::global(cx).settings.clone();
                 let reported = ThemeKind::reported(cx);
                 let changed = ThemeKind::assumed() != Some(reported);
                 if changed {
@@ -274,7 +274,7 @@ impl Root {
             #[cfg(target_os = "windows")]
             rounded: None,
             #[cfg(any(target_os = "linux", target_os = "freebsd"))]
-            decorations: Sonora::global(cx).settings.read(cx).window_decorations(),
+            decorations: UchanMusic::global(cx).settings.read(cx).window_decorations(),
         };
         root.show(start, cx);
         root
@@ -288,7 +288,7 @@ impl Root {
         let detail = cx.new(|cx| {
             ArtistDetail::new(
                 self.session.clone(),
-                Sonora::global(cx).library.clone(),
+                UchanMusic::global(cx).library.clone(),
                 self.io.clone(),
                 cx,
             )
@@ -321,7 +321,7 @@ impl Root {
         let detail = cx.new(|cx| {
             Detail::new(
                 self.session.clone(),
-                Sonora::global(cx).library.clone(),
+                UchanMusic::global(cx).library.clone(),
                 self.io.clone(),
                 cx,
             )
@@ -349,7 +349,7 @@ impl Root {
         let detail = cx.new(|cx| {
             Detail::new(
                 self.session.clone(),
-                Sonora::global(cx).library.clone(),
+                UchanMusic::global(cx).library.clone(),
                 self.io.clone(),
                 cx,
             )
@@ -591,7 +591,7 @@ const SCRIPTS: [&str; 18] = [
 ];
 
 fn ui_font(cx: &App) -> Font {
-    let chosen = Sonora::global(cx).settings.read(cx).font();
+    let chosen = UchanMusic::global(cx).settings.read(cx).font();
     match chosen == SYSTEM_FONT {
         true => Font {
             fallbacks: Some(scripts(false).clone()),
@@ -667,7 +667,7 @@ impl Render for Root {
         // `Opaque`; Linux/FreeBSD round their own chrome directly instead, below.
         #[cfg(target_os = "windows")]
         {
-            let rounding = Sonora::global(cx).settings.read(cx).window_rounding();
+            let rounding = UchanMusic::global(cx).settings.read(cx).window_rounding();
             if self.rounded != Some(rounding) {
                 self.rounded = Some(rounding);
                 state::apply_window_rounding(window, rounding, cx);
@@ -676,7 +676,7 @@ impl Render for Root {
 
         #[cfg(any(target_os = "linux", target_os = "freebsd"))]
         {
-            let decorations = Sonora::global(cx).settings.read(cx).window_decorations();
+            let decorations = UchanMusic::global(cx).settings.read(cx).window_decorations();
             if self.decorations != decorations {
                 self.decorations = decorations;
                 window.request_decorations(decorations);
@@ -689,7 +689,7 @@ impl Render for Root {
         // `PlayerBar` for the top and bottom edges. Rounding the root too keeps its own
         // background quad correct and costs nothing.
         #[cfg(any(target_os = "linux", target_os = "freebsd"))]
-        let radius = crate::chrome::window_radius(Sonora::global(cx).settings.read(cx));
+        let radius = crate::chrome::window_radius(UchanMusic::global(cx).settings.read(cx));
         #[cfg(not(any(target_os = "linux", target_os = "freebsd")))]
         let radius: Option<gpui::Pixels> = None;
 

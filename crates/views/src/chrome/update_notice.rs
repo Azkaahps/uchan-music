@@ -1,7 +1,7 @@
 use gpui::prelude::*;
 use gpui::{Context, Entity, Pixels, Render, Window, div, px, svg};
 use i18n::t;
-use state::{Sonora, UpdateState, Updates};
+use state::{UchanMusic, UpdateState, Updates};
 use ui::{ActiveTheme as _, Button, Text};
 
 const ICON: Pixels = px(18.);
@@ -13,7 +13,7 @@ pub(crate) struct UpdateNotice {
 
 impl UpdateNotice {
     pub fn new(cx: &mut Context<Self>) -> Self {
-        let updates = Sonora::global(cx).updates.clone();
+        let updates = UchanMusic::global(cx).updates.clone();
         cx.observe(&updates, |_, _, cx| cx.notify()).detach();
         Self { updates }
     }

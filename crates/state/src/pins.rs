@@ -410,7 +410,7 @@ fn rank(kind: PinKind) -> u8 {
     }
 }
 
-/// The pin a provider's pin target stands for, or `None` for a row Sonora cannot open on its own,
+/// The pin a provider's pin target stands for, or `None` for a row UchanMusic cannot open on its own,
 /// such as a folder or a podcast.
 fn pin_of(item: &PinTarget) -> Option<Pin> {
     let kind = match item.kind {

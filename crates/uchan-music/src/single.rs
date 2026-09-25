@@ -7,8 +7,8 @@ use interprocess::local_socket::{GenericNamespaced, ListenerOptions, Name, Strea
 use tokio::sync::mpsc::UnboundedSender;
 
 const SOCKET: &str = match cfg!(debug_assertions) {
-    true => "sonora-dev.sock",
-    false => "sonora.sock",
+    true => "uchan-music-dev.sock",
+    false => "uchan-music.sock",
 };
 
 pub enum Instance {
@@ -33,7 +33,7 @@ pub fn claim(args: &[String], sender: UnboundedSender<Vec<String>>) -> Instance 
 
         Err(error) => {
             // Windows reports an occupied pipe with an error other than
-            // AddrInUse, so any failure may mean another Sonora owns the socket.
+            // AddrInUse, so any failure may mean another UchanMusic owns the socket.
             if hand_over(name.clone(), args) {
                 return Instance::Running;
             }
@@ -95,7 +95,7 @@ fn hand_over(name: Name<'_>, args: &[String]) -> bool {
     stream.write_all(args.join("\n").as_bytes()).is_ok()
 }
 
-/// The listener for the instance socket, open to every Sonora launched at the desktop.
+/// The listener for the instance socket, open to every UchanMusic launched at the desktop.
 fn options(name: Name<'_>) -> ListenerOptions<'_> {
     let options = ListenerOptions::new().name(name);
     #[cfg(windows)]
@@ -111,7 +111,7 @@ fn options(name: Name<'_>) -> ListenerOptions<'_> {
 
 /// Access to the pipe for anyone at the desktop, whichever token they hold. Windows owns an
 /// elevated process's objects as Administrators and denies that group to the same user's
-/// unelevated processes, so with the default descriptor a Sonora the updater relaunched
+/// unelevated processes, so with the default descriptor a UchanMusic the updater relaunched
 /// elevated is out of reach for one launched from the taskbar: the hand-off fails and the second
 /// launch exits without ever showing a window. `None` keeps the default, and is logged.
 #[cfg(windows)]

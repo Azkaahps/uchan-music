@@ -12,10 +12,10 @@ use souvlaki::{
 };
 use tokio::sync::mpsc;
 
-use crate::{Cover, Io, Playback, PlaybackState, Sonora, join};
+use crate::{Cover, Io, Playback, PlaybackState, UchanMusic, join};
 
-const BUS_NAME: &str = "sonora";
-const DISPLAY_NAME: &str = "Sonora";
+const BUS_NAME: &str = "uchan-music";
+const DISPLAY_NAME: &str = "Uchan Music";
 const SEEK_STEP: Duration = Duration::from_secs(5);
 const ARTWORK: &str = "artwork";
 
@@ -41,7 +41,7 @@ pub fn attach(hwnd: Option<*mut c_void>, cx: &mut App) {
         }
     };
 
-    let sonora = Sonora::global(cx);
+    let sonora = UchanMusic::global(cx);
     let playback = sonora.playback.clone();
     let cover = sonora.cover.clone();
     let io = Io::global(cx);
@@ -226,7 +226,7 @@ fn is_remote(cover: &str) -> bool {
 async fn artwork(url: &str) -> Result<PathBuf> {
     let dir = dirs::cache_dir()
         .unwrap_or_else(std::env::temp_dir)
-        .join("sonora")
+        .join("uchan-music")
         .join(ARTWORK);
     let mut hasher = DefaultHasher::new();
     url.hash(&mut hasher);

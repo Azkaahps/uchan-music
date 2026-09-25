@@ -14,7 +14,7 @@ use crate::spectrum::{Spectrum, Tap};
 pub const RAMP: Duration = Duration::from_millis(25);
 const BUFFER: Duration = Duration::from_millis(50);
 
-/// The device stream every output in the process mixes into, so the sound server sees Sonora as
+/// The device stream every output in the process mixes into, so the sound server sees UchanMusic as
 /// one client however many engines are running. It runs at the rate of whatever played last and
 /// closes when the last output on it drops.
 static SHARED: Mutex<Weak<Device>> = Mutex::new(Weak::new());

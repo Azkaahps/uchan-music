@@ -7,7 +7,7 @@ use tray_icon::{MouseButton, MouseButtonState, TrayIcon, TrayIconBuilder, TrayIc
 
 use super::{Art, Event, Shown};
 
-const TOOLTIP: &str = "Sonora";
+const TOOLTIP: &str = "Uchan Music";
 const PNG: &[u8] = match cfg!(target_os = "macos") {
     true => include_bytes!("../../../../assets/tray/template-64.png"),
     false => include_bytes!("../../../../assets/tray/sonora.png"),
@@ -122,7 +122,7 @@ impl Icon {
 
     pub fn show(&mut self, shown: &Shown) {
         // the status notifier hosts read the caption off the tooltip themselves; here it has to
-        // be pushed, or hovering the icon only ever says Sonora
+        // be pushed, or hovering the icon only ever says UchanMusic
         if let Err(error) = self.icon.set_tooltip(Some(&shown.caption)) {
             log::warn!("tray: cannot set the tooltip: {error:#}");
         }

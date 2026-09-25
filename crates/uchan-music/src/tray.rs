@@ -11,7 +11,7 @@ use gpui::http_client::{AsyncBody, HttpClient};
 use gpui::{App, AppContext as _, Context, Entity, Global, Task};
 use i18n::t;
 use router::Destination;
-use state::{PlaybackState, Repeat, Sonora};
+use state::{PlaybackState, Repeat, UchanMusic};
 use tokio::sync::mpsc::{self, UnboundedReceiver};
 
 #[cfg(any(target_os = "macos", windows))]
@@ -125,7 +125,7 @@ impl Tray {
                     }
                     Event::Quit => cx.quit(),
                     Event::Toggle | Event::Previous | Event::Next | Event::Repeat => {
-                        let playback = Sonora::global(cx).playback.clone();
+                        let playback = UchanMusic::global(cx).playback.clone();
                         playback.update(cx, |playback, cx| match event {
                             Event::Toggle => playback.toggle_play(cx),
                             Event::Previous => playback.previous(cx),
@@ -134,17 +134,17 @@ impl Tray {
                         });
                     }
                     Event::Shuffle => {
-                        let queue = Sonora::global(cx).queue.clone();
+                        let queue = UchanMusic::global(cx).queue.clone();
                         queue.update(cx, |queue, cx| queue.toggle_shuffle(cx));
                     }
                 });
             }
         });
 
-        let playback = Sonora::global(cx).playback.clone();
+        let playback = UchanMusic::global(cx).playback.clone();
         cx.observe(&playback, |this, _, cx| this.publish(cx))
             .detach();
-        let queue = Sonora::global(cx).queue.clone();
+        let queue = UchanMusic::global(cx).queue.clone();
         cx.observe(&queue, |this, _, cx| this.publish(cx)).detach();
 
         let shown = shown(None, cx);
@@ -178,7 +178,7 @@ impl Tray {
     /// Starts loading the cover of the track that is playing now. Dropping the task cancels the
     /// load for the track that was playing before, so a run of skips only draws the last cover.
     fn follow(&mut self, cx: &mut Context<Self>) {
-        let cover = Sonora::global(cx)
+        let cover = UchanMusic::global(cx)
             .playback
             .read(cx)
             .track()
@@ -211,7 +211,7 @@ impl Tray {
 /// Opens the song page of whatever is playing. A track without an id is not an error: the caption
 /// row is only enabled when there is one.
 fn open(cx: &mut App) {
-    let playing = Sonora::global(cx).playback.read(cx).track();
+    let playing = UchanMusic::global(cx).playback.read(cx).track();
     let Some(id) = playing.and_then(|track| track.id.clone()) else {
         return;
     };
@@ -261,7 +261,7 @@ async fn fetch(http: &Arc<dyn HttpClient>, url: &str) -> Result<Vec<u8>> {
 }
 
 fn shown(artwork: Option<Art>, cx: &App) -> Shown {
-    let playback = Sonora::global(cx).playback.read(cx);
+    let playback = UchanMusic::global(cx).playback.read(cx);
     let playing = matches!(
         playback.state(),
         PlaybackState::Playing | PlaybackState::Loading
@@ -277,7 +277,7 @@ fn shown(artwork: Option<Art>, cx: &App) -> Shown {
         None => t!("player-nothing-playing").to_string(),
     };
     let song = playback.track().is_some_and(|track| track.id.is_some());
-    let shuffle_on = Sonora::global(cx).queue.read(cx).shuffle();
+    let shuffle_on = UchanMusic::global(cx).queue.read(cx).shuffle();
     let repeat_on = playback.repeat() != Repeat::Off;
     Shown {
         artwork,

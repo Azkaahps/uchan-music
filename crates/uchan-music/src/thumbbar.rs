@@ -1,6 +1,6 @@
 //! The thumbnail toolbar Windows draws under the taskbar preview.
 //!
-//! Hovering Sonora's taskbar button opens a thumbnail of the window, and this
+//! Hovering UchanMusic's taskbar button opens a thumbnail of the window, and this
 //! puts previous, play/pause and next underneath it, so playback can be driven
 //! without raising the window. They are the same three commands the tray menu
 //! carries and they reach [`state::Playback`] the same way, through an
@@ -18,7 +18,7 @@ use std::rc::Rc;
 
 use gpui::{App, AppContext as _, Context, Entity, Global, Subscription, Task, WindowId};
 use i18n::t;
-use state::{PlaybackState, Sonora};
+use state::{PlaybackState, UchanMusic};
 use tokio::sync::mpsc::{self, UnboundedReceiver, UnboundedSender};
 use windows::Win32::Foundation::{HWND, LPARAM, LRESULT, WPARAM};
 use windows::Win32::Graphics::Gdi::{
@@ -95,7 +95,7 @@ struct Look {
 }
 
 /// The toolbar of the one window that has one. Lives exactly as long as that
-/// window: `closed` takes it down with the window, so a closed-to-tray Sonora
+/// window: `closed` takes it down with the window, so a closed-to-tray UchanMusic
 /// never pushes buttons at a handle that no longer exists.
 struct Installed {
     window: WindowId,
@@ -156,7 +156,7 @@ impl ThumbBar {
                     break;
                 }
                 cx.update(|cx| {
-                    let playback = Sonora::global(cx).playback.clone();
+                    let playback = UchanMusic::global(cx).playback.clone();
                     playback.update(cx, |playback, cx| match event {
                         Event::Previous => playback.previous(cx),
                         Event::Toggle => playback.toggle_play(cx),
@@ -166,10 +166,10 @@ impl ThumbBar {
             }
         });
 
-        let playback = Sonora::global(cx).playback.clone();
+        let playback = UchanMusic::global(cx).playback.clone();
         cx.observe(&playback, |this, _, cx| this.publish(cx))
             .detach();
-        let settings = Sonora::global(cx).settings.clone();
+        let settings = UchanMusic::global(cx).settings.clone();
         cx.observe(&settings, |this, _, cx| this.publish(cx))
             .detach();
 
@@ -544,7 +544,7 @@ fn icon(rgba: &[u8], size: u32) -> Option<HICON> {
 
 /// Reads what the toolbar should be showing right now.
 fn shown(cx: &App) -> Shown {
-    let playback = Sonora::global(cx).playback.read(cx);
+    let playback = UchanMusic::global(cx).playback.read(cx);
     let playing = matches!(
         playback.state(),
         PlaybackState::Playing | PlaybackState::Loading

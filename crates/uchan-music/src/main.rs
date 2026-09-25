@@ -22,7 +22,7 @@ use gpui::{
 };
 use music::LyricsProvider;
 use router::Screen;
-use state::Sonora;
+use state::UchanMusic;
 use ui::ActiveTheme as _;
 use ui::ThemeKind;
 use views::Root;
@@ -65,7 +65,7 @@ fn main() {
     let io = match state::Io::new() {
         Ok(io) => io,
         Err(error) => {
-            eprintln!("sonora: cannot start runtime: {error:#}");
+            eprintln!("uchan-music: cannot start runtime: {error:#}");
             return;
         }
     };
@@ -81,7 +81,7 @@ fn main() {
 
     app.run(move |cx: &mut App| {
         if let Err(error) = assets::Assets.load_fonts(cx) {
-            log::error!("sonora: cannot load bundled fonts: {error:#}");
+            log::error!("uchan-music: cannot load bundled fonts: {error:#}");
         }
 
         let database = storage::Database::standard();
@@ -96,7 +96,7 @@ fn main() {
             Arc::new(music::local::LocalProvider::new(
                 dirs::cache_dir()
                     .unwrap_or_else(std::env::temp_dir)
-                    .join("sonora"),
+                    .join("uchan-music"),
                 database.clone(),
                 storage::Cache::standard(),
             ));
@@ -115,14 +115,14 @@ fn main() {
         state::install_rounded_window_hook(set_corner_preference, cx);
         let opened_a_destination = opened_start.is_some();
         let start = opened_start.unwrap_or_else(|| {
-            let startup = Sonora::global(cx).settings.read(cx).startup().to_owned();
+            let startup = UchanMusic::global(cx).settings.read(cx).startup().to_owned();
             Screen::from_id(&startup)
                 .unwrap_or(Screen::Home)
                 .destination()
         });
         router::init(start, cx);
         let (look, overrides, language, pack, stillness, pace, remembered) = {
-            let settings = Sonora::global(cx).settings.read(cx);
+            let settings = UchanMusic::global(cx).settings.read(cx);
             (
                 settings.look(),
                 settings.theme_overrides().clone(),
@@ -143,7 +143,7 @@ fn main() {
         };
         ThemeKind::assume(reported.unwrap_or(remembered));
         if let Some(reported) = reported.filter(|reported| *reported != remembered) {
-            Sonora::global(cx)
+            UchanMusic::global(cx)
                 .settings
                 .clone()
                 .update(cx, |settings, cx| settings.set_system_theme(reported, cx));
@@ -158,7 +158,7 @@ fn main() {
         memory::watch(cx);
 
         open_window(cx);
-        let session = Sonora::global(cx).session.clone();
+        let session = UchanMusic::global(cx).session.clone();
         session.update(cx, |session, cx| session.restore(cx));
 
         // A cold "Open With" launch reaches Playback through the same batch a hot hand-off
@@ -210,7 +210,7 @@ fn follow(items: &[String], cx: &mut App) {
         router::navigate(destination, cx);
     }
     if !paths.is_empty() {
-        let playback = Sonora::global(cx).playback.clone();
+        let playback = UchanMusic::global(cx).playback.clone();
         playback.update(cx, |playback, cx| playback.open_paths(paths, cx));
     }
 }
@@ -283,7 +283,7 @@ fn show_window(cx: &mut App) {
 }
 
 fn open_window(cx: &mut App) {
-    let Sonora {
+    let UchanMusic {
         session,
         cover: _,
         drm: _,
@@ -300,7 +300,7 @@ fn open_window(cx: &mut App) {
         settings: _,
         updates: _,
         usage: _,
-    } = Sonora::global(cx);
+    } = UchanMusic::global(cx);
     let (session, library, playback, queue) = (
         session.clone(),
         library.clone(),
@@ -316,7 +316,7 @@ fn open_window(cx: &mut App) {
             )
         });
 
-    let settings = Sonora::global(cx).settings.read(cx);
+    let settings = UchanMusic::global(cx).settings.read(cx);
     let saver = settings.saver();
     #[cfg(any(target_os = "linux", target_os = "freebsd"))]
     let decorations = settings.window_decorations();
@@ -329,14 +329,14 @@ fn open_window(cx: &mut App) {
             display_id,
             window_background: background,
             titlebar: Some(TitlebarOptions {
-                title: Some("Sonora".into()),
+                title: Some("Uchan Music".into()),
                 appears_transparent: true,
                 traffic_light_position: Some(point(px(9.), px(9.))),
             }),
             inactive_frame_interval: saver.interval(),
             is_movable: true,
             is_resizable: true,
-            app_id: Some("sonora".into()),
+            app_id: Some("uchan-music".into()),
             window_min_size: Some(LEAST_SIZE),
             #[cfg(any(target_os = "linux", target_os = "freebsd"))]
             window_decorations: Some(decorations),
@@ -347,7 +347,7 @@ fn open_window(cx: &mut App) {
             #[cfg(target_os = "windows")]
             set_corner_preference(
                 window,
-                Sonora::global(cx).settings.read(cx).window_rounding(),
+                UchanMusic::global(cx).settings.read(cx).window_rounding(),
             );
             let handle = platform_handle(window);
             state::attach_remote(handle, cx);
@@ -409,10 +409,10 @@ fn platform_handle(window: &gpui::Window) -> Option<*mut std::ffi::c_void> {
 }
 
 // DWM draws the caption buttons behind the client area, where an opaque window hides them
-// and a transparent or blurred one shows them beside Sonora's own. They come with
+// and a transparent or blurred one shows them beside UchanMusic's own. They come with
 // `WS_SYSMENU`, so that is the style to drop: `WS_CAPTION` has to stay, because DWM only
 // animates minimize, restore and close on a window that carries it. Alt+F4 and the taskbar
-// still close the window; only the Alt+Space menu goes, and Sonora's title bar has no use
+// still close the window; only the Alt+Space menu goes, and UchanMusic's title bar has no use
 // for it.
 #[cfg(target_os = "windows")]
 fn hide_system_caption(handle: *mut std::ffi::c_void) {

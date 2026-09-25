@@ -82,7 +82,7 @@ impl Global for Io {}
 /// and costs a stack and an allocator arena each.
 const WORKERS: usize = 4;
 /// The ceiling on blocking threads, which is where the sqlite reads and the tag writes go. The
-/// default is 512, far past anything Sonora queues at once.
+/// default is 512, far past anything UchanMusic queues at once.
 const BLOCKING: usize = 16;
 
 impl Io {
@@ -90,7 +90,7 @@ impl Io {
         let runtime = tokio::runtime::Builder::new_multi_thread()
             .worker_threads(WORKERS)
             .max_blocking_threads(BLOCKING)
-            .thread_name("sonora-io")
+            .thread_name("uchan-music-io")
             .enable_all()
             .build()?;
 
@@ -152,7 +152,7 @@ pub(crate) fn settled<T>(result: Result<T>, cx: &mut gpui::App) -> std::result::
     }
 }
 
-pub struct Sonora {
+pub struct UchanMusic {
     pub session: Entity<Session>,
     pub cover: Entity<Cover>,
     pub drm: Entity<Drm>,
@@ -173,9 +173,9 @@ pub struct Sonora {
     pub usage: Entity<Usage>,
 }
 
-impl Global for Sonora {}
+impl Global for UchanMusic {}
 
-impl Sonora {
+impl UchanMusic {
     pub fn global(cx: &App) -> &Self {
         cx.global()
     }
@@ -249,7 +249,7 @@ pub fn init(
         cx,
     );
 
-    cx.set_global(Sonora {
+    cx.set_global(UchanMusic {
         session,
         cover,
         drm,

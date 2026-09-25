@@ -154,7 +154,7 @@ type Sink<'a, T> = (
     &'a (dyn Fn(&Value) -> Option<T> + Sync),
 );
 
-/// The last pin list as the client remembers it: the library id behind each pin Sonora shows,
+/// The last pin list as the client remembers it: the library id behind each pin UchanMusic shows,
 /// by uri, and how many pins Apple holds in all.
 #[derive(Default)]
 struct Pinned {

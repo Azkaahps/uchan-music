@@ -1,7 +1,7 @@
 use std::time::Duration;
 
 use gpui::App;
-use state::Sonora;
+use state::UchanMusic;
 
 const INTERVAL: Duration = Duration::from_secs(30);
 
@@ -25,7 +25,7 @@ pub fn watch(cx: &mut App) {
 fn report(probed: (Footprint, Option<usize>), cx: &mut App) {
     let (footprint, resident) = probed;
     let (entries, bytes) = ui::artwork_usage(cx).unwrap_or((0, 0));
-    let queue = Sonora::global(cx).queue.read(cx);
+    let queue = UchanMusic::global(cx).queue.read(cx);
     let past = queue.past().len();
     let ahead = queue.upcoming().len() + queue.similar().len();
 

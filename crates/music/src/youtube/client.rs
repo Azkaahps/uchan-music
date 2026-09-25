@@ -384,7 +384,7 @@ fn collect_thumbnails(node: &serde_json::Value) -> Vec<ytmusic::Thumbnail> {
         .unwrap_or_default()
 }
 
-/// A playlist of the library as Sonora lists it: one the user made is theirs by name, and the
+/// A playlist of the library as UchanMusic lists it: one the user made is theirs by name, and the
 /// saved-episodes list YouTube keeps for podcasts is left out.
 pub(crate) fn library_playlist(source: ytmusic::Playlist, account: &str) -> Option<Playlist> {
     if source.id == EPISODES {

@@ -13,7 +13,7 @@ const SEARCH: &str = "https://music.163.com/api/search/get";
 const LYRIC: &str = "https://music.163.com/api/song/lyric/v1";
 const CANDIDATES: usize = 3;
 const AGENT: &str = concat!(
-    "sonora/",
+    "uchan-music/",
     env!("CARGO_PKG_VERSION"),
     " (https://github.com/sonorahq/sonora)"
 );

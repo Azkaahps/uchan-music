@@ -1,6 +1,6 @@
 <div align="center">
 
-# Sonora
+# Uchan Music
 
 [![Build](https://img.shields.io/github/actions/workflow/status/sonorahq/sonora/release.yml?style=flat-square&label=build)](https://github.com/sonorahq/sonora/actions/workflows/release.yml)
 [![License](https://img.shields.io/github/license/sonorahq/sonora?style=flat-square&label=license)](./COPYING)
@@ -38,11 +38,11 @@ Stream from your favorite services and play local files — all in one **native*
 </div>
 
 > [!IMPORTANT]
-> **Sonora is not a piracy tool.**
+> **Uchan Music is not a piracy tool.**
 >
-> Sonora is not a platform for obtaining or sharing copyrighted material. We will not implement any functions that can be used to export decrypted streams, DRM licenses, content keys, or to convert protected streams into media files.
+> Uchan Music is not a platform for obtaining or sharing copyrighted material. We will not implement any functions that can be used to export decrypted streams, DRM licenses, content keys, or to convert protected streams into media files.
 >
-> Sonora is not designed to circumvent subscriptions or other restrictions put in place by music streaming platforms. If the service demands that you have a valid subscription in order to play back their tracks, so will Sonora.
+> Uchan Music is not designed to circumvent subscriptions or other restrictions put in place by music streaming platforms. If the service demands that you have a valid subscription in order to play back their tracks, so will Uchan Music.
 >
 > Features aimed at ripping, downloading, distributing, or gaining access to protected streaming content are out of scope for the project.
 
@@ -69,7 +69,7 @@ brew install --cask nolight132/tap/sonora
 After installing (thanks Apple):
 
 ```sh
-xattr -dr com.apple.quarantine /Applications/Sonora.app
+xattr -dr com.apple.quarantine /Applications/Uchan Music.app
 ```
 
 ### Linux
@@ -93,7 +93,7 @@ Either `pipewire-alsa` or `pulseaudio-alsa` is required, matching your sound ser
 
 #### Flatpak
 
-Add the Sonora repository (updates with `flatpak update`):
+Add the Uchan Music repository (updates with `flatpak update`):
 
 ```sh
 flatpak install --user https://sonorahq.github.io/sonora/sonora.flatpakref
@@ -149,8 +149,8 @@ You can set configuration options via the included Home Manager module under `pr
 
 #### Installer
 
-Download and run the [installer](https://github.com/sonorahq/sonora/releases/latest/download/Sonora-Setup.exe),
-or the [ARM installer](https://github.com/sonorahq/sonora/releases/latest/download/Sonora-Setup-arm64.exe)
+Download and run the [installer](https://github.com/sonorahq/sonora/releases/latest/download/Uchan Music-Setup.exe),
+or the [ARM installer](https://github.com/sonorahq/sonora/releases/latest/download/Uchan Music-Setup-arm64.exe)
 on Windows on ARM.
 
 #### Portable
@@ -216,23 +216,23 @@ AI-assisted proofreading and translation of human-written text are permitted.
 
 ## Credits
 
-Sonora is built with the help of some incredible open-source projects, including:
+Uchan Music is built with the help of some incredible open-source projects, including:
 
 - [Zed](https://github.com/zed-industries/zed) — a wonderful editor (~~ab~~)used by all core team members. Conveniently provides `gpui` — their native Rust rendering stack.
 - [librespot](https://github.com/librespot-org/librespot) — Spotify playback and library integration.
 - [yt-dlp](https://github.com/yt-dlp/yt-dlp) — certain YouTube ideas implemented in [ytmusic-rs](https://github.com/sonorahq/ytmusic-rs) :)
 
 ## Code signing
-Sonora has applied for code signing through SignPath Foundation. Current releases are not yet signed through SignPath Foundation. If approved, signed releases will use free code signing provided by SignPath.io, with a certificate by SignPath Foundation.
+Uchan Music has applied for code signing through SignPath Foundation. Current releases are not yet signed through SignPath Foundation. If approved, signed releases will use free code signing provided by SignPath.io, with a certificate by SignPath Foundation.
 
 ## License
 
-Copyright (C) 2026 Sonora Contributors.
+Copyright (C) 2026 Uchan Music Contributors.
 
-Sonora is free software, released under the [GNU General Public License version
+Uchan Music is free software, released under the [GNU General Public License version
 3 or later](COPYING).
 
-Sonora is an unofficial client and is not affiliated with, endorsed by, or
+Uchan Music is an unofficial client and is not affiliated with, endorsed by, or
 sponsored by Spotify AB.
 
 The binary also embeds the [Inter](https://github.com/rsms/inter) typeface (SIL

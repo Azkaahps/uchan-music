@@ -9,13 +9,13 @@ fn main() {
     {
         let icon = concat!(
             env!("CARGO_MANIFEST_DIR"),
-            "/../../assets/windows/sonora.ico"
+            "/../../assets/windows/uchan-music.ico"
         );
         println!("cargo:rerun-if-changed={icon}");
         let mut resource = winresource::WindowsResource::new();
         resource.set_icon(icon);
-        resource.set("ProductName", "Sonora");
-        resource.set("FileDescription", "Sonora");
+        resource.set("ProductName", "Uchan Music");
+        resource.set("FileDescription", "Uchan Music");
         if let Err(error) = resource.compile() {
             println!("cargo:warning=cannot embed the windows icon: {error}");
         }

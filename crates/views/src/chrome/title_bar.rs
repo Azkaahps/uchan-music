@@ -12,7 +12,7 @@ use ui::{ActiveTheme as _, Button};
 
 use crate::chrome::SidebarRight;
 use router::Navigation;
-use state::{AppSettings, Sonora};
+use state::{AppSettings, UchanMusic};
 
 const SYSTEM_ZOOMS: bool = cfg!(target_os = "windows");
 
@@ -64,7 +64,7 @@ impl EventEmitter<TitleBarEvent> for TitleBar {}
 impl TitleBar {
     pub fn new(cx: &mut Context<Self>) -> Self {
         let navigation = router::trail(cx);
-        let settings = Sonora::global(cx).settings.clone();
+        let settings = UchanMusic::global(cx).settings.clone();
 
         cx.observe(&navigation, |_, _, cx| cx.notify()).detach();
         cx.observe(&settings, |_, _, cx| cx.notify()).detach();

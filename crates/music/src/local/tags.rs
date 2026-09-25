@@ -428,7 +428,7 @@ mod tests {
         info.extend_from_slice(&packed.to_be_bytes());
         info.extend_from_slice(&[0; 16]);
 
-        let vendor = b"sonora";
+        let vendor = b"uchan-music";
         let mut block = Vec::new();
         block.extend_from_slice(&(vendor.len() as u32).to_le_bytes());
         block.extend_from_slice(vendor);

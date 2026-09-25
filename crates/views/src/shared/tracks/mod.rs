@@ -16,7 +16,7 @@ use gpui::{
 };
 use music::{Shape, Track};
 use router::Destination;
-use state::{Detail, History, Library, Origin, Playback, PlaybackState, Shelf, Sonora};
+use state::{Detail, History, Library, Origin, Playback, PlaybackState, Shelf, UchanMusic};
 use ui::{Button, Cell, ColumnSpec, Menu, Pin, ROW_GROUP, Scrollbar, TableSource, TableState};
 
 use crate::shared::cells;
@@ -136,7 +136,7 @@ fn forget(
         });
         return;
     }
-    let library = Sonora::global(cx).library.clone();
+    let library = UchanMusic::global(cx).library.clone();
     library.update(cx, |library, cx| {
         library.save_tracks(tracks.to_vec(), false, cx)
     });
@@ -279,7 +279,7 @@ impl TrackSource {
         let Some(id) = self.album.as_ref().and_then(|album| album.read(cx).id()) else {
             return Numbering::Listing;
         };
-        if Sonora::global(cx).library.read(cx).shape(Shelf::of(id)) != Shape::Catalog {
+        if UchanMusic::global(cx).library.read(cx).shape(Shelf::of(id)) != Shape::Catalog {
             return Numbering::Listing;
         }
 
@@ -649,7 +649,7 @@ impl TableSource for TrackSource {
         if tracks.is_empty() {
             return None;
         }
-        let columns = match Sonora::global(cx).settings.read(cx).adaptive_menu() {
+        let columns = match UchanMusic::global(cx).settings.read(cx).adaptive_menu() {
             true => TrackColumns {
                 album: visible.contains(&TrackField::Album),
                 artists: visible.contains(&TrackField::Artists),

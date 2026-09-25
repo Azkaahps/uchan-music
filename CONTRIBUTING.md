@@ -1,6 +1,6 @@
-# Contributing to Sonora
+# Contributing to Uchan Music
 
-Sonora is a native music streaming client, built with Rust and
+Uchan Music is a native music streaming client, built with Rust and
 [GPUI](https://github.com/zed-industries/zed), streaming through
 [librespot](https://github.com/librespot-org/librespot). Linux is the platform we mainly
 develop against. Windows and macOS are built by CI but usually not exercised locally except for
@@ -63,7 +63,7 @@ Three things that bite people:
 
 The first build compiles GPUI from source, so expect several minutes.
 
-Debug builds claim `sonora-dev.sock`, so `cargo run` starts beside an installed Sonora instead of
+Debug builds claim `sonora-dev.sock`, so `cargo run` starts beside an installed Uchan Music instead of
 handing over to it. Logs go to `$XDG_STATE_HOME/sonora/sonora.log`; widen them with
 `SONORA_LOG=sonora=debug,music=debug`. Durable settings live in
 `$XDG_CONFIG_HOME/sonora/settings.json`; runtime state lives in
@@ -200,10 +200,10 @@ Don't hand-edit these, re-run the generator:
 
 `CHANGELOG.md` follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Add user-facing
 sentences to `## [Unreleased]` as features land, under `Added` / `Changed` / `Fixed` — say what
-someone using Sonora can now do, and leave out work no user can observe. Cutting a release is then
+someone using Uchan Music can now do, and leave out work no user can observe. Cutting a release is then
 only a rename.
 
 ## License
 
-Sonora is GPL-3.0-or-later. By contributing you agree that your contribution is licensed under those
+Uchan Music is GPL-3.0-or-later. By contributing you agree that your contribution is licensed under those
 terms.

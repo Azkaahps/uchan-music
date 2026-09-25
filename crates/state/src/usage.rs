@@ -10,7 +10,7 @@ use crate::{Io, Session, SessionEvent, join};
 const ENDPOINT: &str = "https://sonora-stats.nolight.dev/install";
 const RUNNING: &str = env!("CARGO_PKG_VERSION");
 const AGENT: &str = concat!(
-    "sonora/",
+    "uchan-music/",
     env!("CARGO_PKG_VERSION"),
     " (https://github.com/sonorahq/sonora)"
 );

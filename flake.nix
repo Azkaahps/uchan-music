@@ -1,5 +1,5 @@
 {
-  description = "Sonora - a native music streaming client";
+  description = "Uchan Music - a native music streaming client";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -91,15 +91,15 @@
           );
 
           alsaPluginDirectory = pkgs.symlinkJoin {
-            name = "sonora-alsa-plugins";
+            name = "uchan-music-alsa-plugins";
             paths = [
               "${pkgs.pipewire}/lib/alsa-lib"
               "${pkgs.alsa-plugins}/lib/alsa-lib"
             ];
           };
 
-          sonora = pkgs.rustPlatform.buildRustPackage (final: {
-            pname = "sonora";
+          uchan-music = pkgs.rustPlatform.buildRustPackage (final: {
+            pname = "uchan-music";
             inherit ((lib.importTOML (final.src + /Cargo.toml)).workspace.package) version;
 
             src = ./.;
@@ -167,40 +167,40 @@
             installPhase = ''
               runHook preInstall
 
-              install -Dm755 target/release/sonora "$out/bin/sonora"
+              install -Dm755 target/release/uchan-music "$out/bin/uchan-music"
               ${
                 if pkgs.stdenv.hostPlatform.isDarwin then
                   ''
-                    install -Dm755 target/release/sonora "$out/Applications/Sonora.app/Contents/MacOS/sonora"
-                    install -Dm444 "$src/assets/macos/sonora.icns" \
-                      "$out/Applications/Sonora.app/Contents/Resources/sonora.icns"
+                    install -Dm755 target/release/uchan-music "$out/Applications/Uchan Music.app/Contents/MacOS/uchan-music"
+                    install -Dm444 "$src/assets/macos/uchan-music.icns" \
+                      "$out/Applications/Uchan Music.app/Contents/Resources/uchan-music.icns"
 
                     sed \
                       "s/@VERSION@/$version/g" \
                       "$src/assets/macos/Info.plist" \
-                      > "$out/Applications/Sonora.app/Contents/Info.plist"
+                      > "$out/Applications/Uchan Music.app/Contents/Info.plist"
 
-                    LICENSE_DIR="$out/Applications/Sonora.app/Contents/Resources"
+                    LICENSE_DIR="$out/Applications/Uchan Music.app/Contents/Resources"
                   ''
                 else
                   ''
-                    install -Dm444 "$src/assets/linux/sonora.desktop" \
-                      "$out/share/applications/sonora.desktop"
-                    install -Dm444 "$src/assets/linux/sonora.svg" \
-                      "$out/share/icons/hicolor/scalable/apps/sonora.svg"
-                    for icon in "$src"/assets/linux/icons/hicolor/*/apps/sonora.png; do
+                    install -Dm444 "$src/assets/linux/uchan-music.desktop" \
+                      "$out/share/applications/uchan-music.desktop"
+                    install -Dm444 "$src/assets/linux/uchan-music.svg" \
+                      "$out/share/icons/hicolor/scalable/apps/uchan-music.svg"
+                    for icon in "$src"/assets/linux/icons/hicolor/*/apps/uchan-music.png; do
                       size="$(basename "$(dirname "$(dirname "$icon")")")"
                       install -Dm444 "$icon" \
-                        "$out/share/icons/hicolor/$size/apps/sonora.png"
+                        "$out/share/icons/hicolor/$size/apps/uchan-music.png"
                     done
 
-                    LICENSE_DIR="$out/share/licenses/sonora"
+                    LICENSE_DIR="$out/share/licenses/uchan-music"
                   ''
               }
               install -Dm444 "$src/COPYING" "$LICENSE_DIR/LICENSE"
               install -Dm444 "$src/THIRD-PARTY.md" "$LICENSE_DIR/THIRD-PARTY.md"
               install -Dm444 "$src/assets/fonts/LICENSE.txt" \
-                "$LICENSE_DIR/sonora/LICENSE.Inter"
+                "$LICENSE_DIR/uchan-music/LICENSE.Inter"
               for licence in "$src/assets/icons"/*/LICENSE; do
                 pack="$(basename "$(dirname "$licence")")"
                 install -Dm444 "$licence" \
@@ -212,11 +212,11 @@
               runHook postInstall
             '';
 
-            inherit (sonora-bin) meta;
+            inherit (uchan-music-bin) meta;
           });
 
-          sonora-bin = pkgs.stdenv.mkDerivation {
-            pname = "sonora-bin";
+          uchan-music-bin = pkgs.stdenv.mkDerivation {
+            pname = "uchan-music-bin";
             inherit (release) version;
 
             src = pkgs.fetchurl {
@@ -240,27 +240,27 @@
               if pkgs.stdenv.hostPlatform.isLinux then
                 ''
                   runHook preInstall
-                  install -Dm755 "$src" "$out/bin/sonora"
-                  install -Dm444 ${./assets/linux/sonora.desktop} \
-                    "$out/share/applications/sonora.desktop"
-                  install -Dm444 ${./assets/linux/sonora.svg} \
-                    "$out/share/icons/hicolor/scalable/apps/sonora.svg"
-                  for icon in ${./assets/linux/icons}/hicolor/*/apps/sonora.png; do
+                  install -Dm755 "$src" "$out/bin/uchan-music"
+                  install -Dm444 ${./assets/linux/uchan-music.desktop} \
+                    "$out/share/applications/uchan-music.desktop"
+                  install -Dm444 ${./assets/linux/uchan-music.svg} \
+                    "$out/share/icons/hicolor/scalable/apps/uchan-music.svg"
+                  for icon in ${./assets/linux/icons}/hicolor/*/apps/uchan-music.png; do
                     size="$(basename "$(dirname "$(dirname "$icon")")")"
                     install -Dm444 "$icon" \
-                      "$out/share/icons/hicolor/$size/apps/sonora.png"
+                      "$out/share/icons/hicolor/$size/apps/uchan-music.png"
                   done
-                  install -Dm444 ${./COPYING} "$out/share/licenses/sonora/LICENSE"
-                  install -Dm444 ${./THIRD-PARTY.md} "$out/share/licenses/sonora/THIRD-PARTY.md"
+                  install -Dm444 ${./COPYING} "$out/share/licenses/uchan-music/LICENSE"
+                  install -Dm444 ${./THIRD-PARTY.md} "$out/share/licenses/uchan-music/THIRD-PARTY.md"
                   install -Dm444 ${./assets/fonts/LICENSE.txt} \
-                    "$out/share/licenses/sonora/LICENSE.Inter"
+                    "$out/share/licenses/uchan-music/LICENSE.Inter"
                   for licence in ${./assets/icons}/*/LICENSE; do
                     pack="$(basename "$(dirname "$licence")")"
                     install -Dm444 "$licence" \
-                      "$out/share/licenses/sonora/icons/LICENSE.$pack"
+                      "$out/share/licenses/uchan-music/icons/LICENSE.$pack"
                   done
                   install -Dm444 ${./assets/icons/LICENSE} \
-                    "$out/share/licenses/sonora/icons/LICENSE"
+                    "$out/share/licenses/uchan-music/icons/LICENSE"
                   runHook postInstall
                 ''
               else
@@ -269,11 +269,11 @@
                   mnt="$(mktemp -d)"
                   /usr/bin/hdiutil attach -readonly -nobrowse -mountpoint "$mnt" "$src"
                   mkdir -p "$out/Applications" "$out/bin"
-                  cp -R "$mnt/Sonora.app" "$out/Applications/Sonora.app"
+                  cp -R "$mnt/Uchan Music.app" "$out/Applications/Uchan Music.app"
                   /usr/bin/hdiutil detach "$mnt"
                   makeBinaryWrapper \
-                    "$out/Applications/Sonora.app/Contents/MacOS/sonora" \
-                    "$out/bin/sonora"
+                    "$out/Applications/Uchan Music.app/Contents/MacOS/uchan-music" \
+                    "$out/bin/uchan-music"
                   runHook postInstall
                 '';
 
@@ -281,8 +281,8 @@
               patchelf \
                 --set-interpreter "${pkgs.stdenv.cc.bintools.dynamicLinker}" \
                 --add-rpath "${lib.makeLibraryPath (runtimeLibraries ++ [ pkgs.stdenv.cc.cc.lib ])}" \
-                "$out/bin/sonora"
-              wrapProgram "$out/bin/sonora" \
+                "$out/bin/uchan-music"
+              wrapProgram "$out/bin/uchan-music" \
                 --set ALSA_PLUGIN_DIR ${alsaPluginDirectory} \
                 --prefix GIO_EXTRA_MODULES : ${pkgs.glib-networking}/lib/gio/modules \
                 --prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${gstPluginPath}
@@ -290,7 +290,7 @@
 
             meta = {
               description = "A native music streaming client, built with Rust and GPUI";
-              mainProgram = "sonora";
+              mainProgram = "uchan-music";
               license = with lib.licenses; [
                 gpl3Plus
                 ofl
@@ -301,13 +301,13 @@
           };
         in
         {
-          inherit sonora;
-          default = sonora;
+          inherit uchan-music;
+          default = uchan-music;
         }
         // lib.optionalAttrs (builtins.hasAttr pkgs.stdenv.hostPlatform.system release.assets) {
-          inherit sonora-bin;
-          sonora = sonora-bin;
-          default = sonora-bin;
+          inherit uchan-music-bin;
+          uchan-music = uchan-music-bin;
+          default = uchan-music-bin;
         }
       );
 
@@ -413,12 +413,12 @@
       );
 
       overlays.default = final: _prev: {
-        sonora = self.packages.${final.stdenv.hostPlatform.system}.default;
+        uchan-music = self.packages.${final.stdenv.hostPlatform.system}.default;
       };
 
       homeManagerModules = {
         default = import ./nix/modules/hm-module.nix self;
-        sonora = import ./nix/modules/hm-module.nix self;
+        uchan-music = import ./nix/modules/hm-module.nix self;
       };
 
       homeModules = self.homeManagerModules;

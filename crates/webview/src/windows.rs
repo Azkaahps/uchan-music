@@ -201,12 +201,12 @@ fn begin_environment(
     .context("cannot start the WebView2 environment")
 }
 
-/// Sonora's own cache folder for WebView2's browser state, as a wide string. WebView2 otherwise
+/// UchanMusic's own cache folder for WebView2's browser state, as a wide string. WebView2 otherwise
 /// writes beside the executable, which an installed copy under Program Files cannot do.
 fn user_data_folder() -> Result<Vec<u16>> {
     let folder = dirs::cache_dir()
         .unwrap_or_else(std::env::temp_dir)
-        .join("sonora")
+        .join("uchan-music")
         .join("webview2");
     std::fs::create_dir_all(&folder)
         .with_context(|| format!("cannot create {}", folder.display()))?;
@@ -226,7 +226,7 @@ fn begin_controller(
         .context("the installed WebView2 runtime does not support private profiles")?;
     let options = unsafe { environment.CreateCoreWebView2ControllerOptions() }
         .context("cannot configure the private sign-in profile")?;
-    unsafe { options.SetProfileName(w!("Sonora Sign-In")) }
+    unsafe { options.SetProfileName(w!("Uchan Music Sign-In")) }
         .context("cannot name the sign-in profile")?;
     unsafe { options.SetIsInPrivateModeEnabled(true) }
         .context("cannot make the sign-in profile private")?;

@@ -16,7 +16,7 @@ use router::{
     Destination, LibraryTab, NavEntry, Navigation, NavigationEvent, SettingsTab, navigate,
 };
 use state::{
-    AppSettings, Library, Origin, PinSort, Pins, Playback, PlaybackState, Session, Shelf, Sonora,
+    AppSettings, Library, Origin, PinSort, Pins, Playback, PlaybackState, Session, Shelf, UchanMusic,
 };
 
 use crate::shared::menus::{ItemMenu, item_menu};
@@ -111,11 +111,11 @@ pub(crate) struct SidebarLeft {
 
 impl SidebarLeft {
     pub fn new(cx: &mut Context<Self>) -> Self {
-        let settings = Sonora::global(cx).settings.clone();
-        let session = Sonora::global(cx).session.clone();
-        let playback = Sonora::global(cx).playback.clone();
-        let pins = Sonora::global(cx).pins.clone();
-        let library = Sonora::global(cx).library.clone();
+        let settings = UchanMusic::global(cx).settings.clone();
+        let session = UchanMusic::global(cx).session.clone();
+        let playback = UchanMusic::global(cx).playback.clone();
+        let pins = UchanMusic::global(cx).pins.clone();
+        let library = UchanMusic::global(cx).library.clone();
         cx.observe(&library, |_, _, cx| cx.notify()).detach();
         cx.observe(&pins, |_, _, cx| cx.notify()).detach();
         cx.observe(&playback, |_, _, cx| cx.notify()).detach();

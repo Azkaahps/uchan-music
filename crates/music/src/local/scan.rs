@@ -70,7 +70,7 @@ pub(super) struct Look {
 /// Only what changed is read. The index holds every file's time, size and tags, and every
 /// folder's time, so a folder that has not been touched is listed from memory and the files in
 /// it are never opened. A folder's time moves when an entry is added, removed or renamed, so an
-/// edit in place hides from it: Sonora's own tag editor drops the file it wrote from the index,
+/// edit in place hides from it: UchanMusic's own tag editor drops the file it wrote from the index,
 /// and the Rescan button drops every folder, which is what makes it thorough.
 pub fn scan(roots: &[PathBuf], cache_dir: &Path, index: &Index) -> Scanned {
     let started = std::time::Instant::now();

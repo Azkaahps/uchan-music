@@ -218,7 +218,7 @@ impl Held {
 fn path() -> PathBuf {
     dirs::cache_dir()
         .unwrap_or_else(|| PathBuf::from("."))
-        .join("sonora")
+        .join("uchan-music")
         .join("lyrics.json")
 }
 

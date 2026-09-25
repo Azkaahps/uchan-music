@@ -23,7 +23,7 @@ use music::{AccountChoice, SignIn, SignInPrompt, WritingSystem};
 use router::{Destination, NavEntry, Screen, SettingsTab, navigate};
 use state::{
     AppSettings, CdmState, DiscordName, Drm, Failure, FullscreenControlsAutohide, Io, Playback,
-    SYSTEM_FONT, Scan, ScrobbleState, Scrobbling, Session, SessionState, Sleep, Sonora,
+    SYSTEM_FONT, Scan, ScrobbleState, Scrobbling, Session, SessionState, Sleep, UchanMusic,
 };
 use ui::{ActiveTheme as _, Deck, LEADING, Scrollbar, Scroller, eyebrow, snapped};
 use ui::{
@@ -345,9 +345,9 @@ impl SettingsView {
         playback: Entity<Playback>,
         cx: &mut Context<Self>,
     ) -> Self {
-        let settings = Sonora::global(cx).settings.clone();
-        let scrobbling = Sonora::global(cx).scrobbling.clone();
-        let drm = Sonora::global(cx).drm.clone();
+        let settings = UchanMusic::global(cx).settings.clone();
+        let scrobbling = UchanMusic::global(cx).scrobbling.clone();
+        let drm = UchanMusic::global(cx).drm.clone();
         cx.observe(&drm, |_, _, cx| cx.notify()).detach();
         cx.observe(&session, |_, _, cx| cx.notify()).detach();
         cx.observe(&scrobbling, |_, _, cx| cx.notify()).detach();
@@ -2267,7 +2267,7 @@ impl SettingsView {
     }
 
     /// The Widevine module row, which only appears while the current provider is one whose
-    /// tracks need the module and this build has a host for one. Sonora uses a browser's copy
+    /// tracks need the module and this build has a host for one. UchanMusic uses a browser's copy
     /// when one is here and otherwise offers Google's download, so the row says where that
     /// stands. The download is offered by hand whenever Google's copy is not the one in use,
     /// because a browser's copy can be one this host cannot open. The explanation wraps below
@@ -2611,7 +2611,7 @@ impl SettingsView {
         let muted = theme.muted_foreground;
         let small = theme.text(Text::Small);
         let settings = self.settings.read(cx);
-        let sonora = settings.discord_sonora_button();
+        let sonora = settings.discord_uchan_button();
         let provider = settings.discord_provider_button();
 
         let picker = Picker::new(
@@ -2635,11 +2635,11 @@ impl SettingsView {
             })),
         )
         .item(
-            MenuItem::new("discord-button-sonora", t!("settings-discord-name-sonora"))
+            MenuItem::new("discord-button-uchan", t!("settings-discord-name-sonora"))
                 .selected(sonora)
                 .on_click(cx.listener(move |this, _, _, cx| {
                     this.settings.update(cx, |settings, cx| {
-                        settings.set_discord_sonora_button(!sonora, cx)
+                        settings.set_discord_uchan_button(!sonora, cx)
                     });
                     cx.notify();
                 })),
@@ -2949,14 +2949,14 @@ impl SettingsView {
 
     fn rescan_local_folder(&mut self, cx: &mut Context<Self>) {
         Scan::global(cx).update(cx, |scan, _| scan.asked());
-        Sonora::global(cx)
+        UchanMusic::global(cx)
             .library
             .clone()
             .update(cx, |library, cx| library.rescan_local(true, cx));
     }
 
     fn remove_local_folder(&mut self, path: String, cx: &mut Context<Self>) {
-        Sonora::global(cx)
+        UchanMusic::global(cx)
             .library
             .clone()
             .update(cx, |library, cx| {

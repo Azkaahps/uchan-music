@@ -14,7 +14,7 @@ const MAX_START_DRIFT_SECONDS: u64 = 2;
 const MAX_TEXT_UTF16_UNITS: usize = 128;
 /// What the status says when it names the music rather than a service.
 const MUSIC: &str = "Music";
-/// Where the Sonora button sends a friend who presses it.
+/// Where the UchanMusic button sends a friend who presses it.
 const SONORA_URL: &str = "https://sonorahq.org";
 
 struct Attached {
@@ -178,7 +178,7 @@ impl Discord {
         let named = provider.map(|provider| Source {
             badge: settings.discord_badge().then(|| provider.slug()),
             listening: match settings.discord_name() {
-                DiscordName::Sonora => None,
+                DiscordName::UchanMusic => None,
                 DiscordName::Provider => Some(provider.listening_to().to_owned()),
                 DiscordName::Music => Some(MUSIC.to_owned()),
                 DiscordName::Title => fit_text(&track.name).or_else(|| Some(MUSIC.to_owned())),
@@ -457,9 +457,9 @@ fn buttons(
             url,
         });
     }
-    if settings.discord_sonora_button() {
+    if settings.discord_uchan_button() {
         buttons.push(Button {
-            label: "Get Sonora".to_string(),
+            label: "Get Uchan Music".to_string(),
             url: SONORA_URL.to_string(),
         });
     }

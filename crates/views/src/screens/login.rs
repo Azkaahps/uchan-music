@@ -6,7 +6,7 @@ use gpui::{
 };
 use i18n::t;
 use music::{AccountChoice, SignIn, SignInPrompt};
-use state::{Session, SessionState, Sonora, Usage};
+use state::{Session, SessionState, UchanMusic, Usage};
 use ui::ActiveTheme as _;
 use ui::{Button, Checkbox, Input, Modal, TabBar, Text};
 
@@ -50,7 +50,7 @@ pub struct LoginView {
 impl LoginView {
     pub fn new(session: Entity<Session>, cx: &mut Context<Self>) -> Self {
         cx.observe(&session, |_, _, cx| cx.notify()).detach();
-        let usage = Sonora::global(cx).usage.clone();
+        let usage = UchanMusic::global(cx).usage.clone();
         cx.observe(&usage, |_, _, cx| cx.notify()).detach();
         Self {
             session,
@@ -504,7 +504,7 @@ impl Render for LoginView {
         let orphan = asking && guest.is_none();
 
         #[cfg(any(target_os = "linux", target_os = "freebsd"))]
-        let radius = crate::chrome::window_radius(Sonora::global(cx).settings.read(cx));
+        let radius = crate::chrome::window_radius(UchanMusic::global(cx).settings.read(cx));
         #[cfg(not(any(target_os = "linux", target_os = "freebsd")))]
         let radius: Option<Pixels> = None;
 
@@ -525,7 +525,7 @@ impl Render for LoginView {
                     .gap_2()
                     .child(
                         div()
-                            .child("Sonora")
+                            .child("Uchan Music")
                             .text_size(theme.text(Text::Display))
                             .font_weight(FontWeight::BOLD),
                     )

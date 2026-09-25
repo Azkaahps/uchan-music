@@ -5,8 +5,8 @@ use tokio::sync::mpsc::UnboundedSender;
 
 use super::{Art, Event, Shown};
 
-const ID: &str = "sonora";
-const ICON_NAME: &str = "sonora";
+const ID: &str = "uchan-music";
+const ICON_NAME: &str = "uchan-music";
 const PNG: &[u8] = include_bytes!("../../../../assets/tray/sonora.png");
 /// Flatpak writes this file into every sandbox it starts.
 const FLATPAK_INFO: &str = "/.flatpak-info";
@@ -103,7 +103,7 @@ impl ksni::Tray for Item {
     }
 
     fn title(&self) -> String {
-        "Sonora".to_owned()
+        "Uchan Music".to_owned()
     }
 
     fn icon_name(&self) -> String {
@@ -116,7 +116,7 @@ impl ksni::Tray for Item {
 
     fn tool_tip(&self) -> ToolTip {
         ToolTip {
-            title: "Sonora".to_owned(),
+            title: "Uchan Music".to_owned(),
             description: self
                 .shown
                 .as_ref()

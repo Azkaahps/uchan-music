@@ -3,7 +3,7 @@ use std::time::Duration;
 use gpui::{App, Context, Entity, EventEmitter, Task};
 
 use crate::session::Session;
-use crate::{Io, Sonora};
+use crate::{Io, UchanMusic};
 
 /// How long to wait before each check of whether the network is back. The last one repeats
 /// for as long as the network stays gone.
@@ -44,13 +44,13 @@ impl Network {
     }
 
     pub fn global(cx: &App) -> Entity<Self> {
-        Sonora::global(cx).network.clone()
+        UchanMusic::global(cx).network.clone()
     }
 
     /// Whether the network is gone. Every screen that needs one asks this rather than waiting
     /// for its own load to fail.
     pub fn lost(cx: &App) -> bool {
-        match cx.try_global::<Sonora>() {
+        match cx.try_global::<UchanMusic>() {
             Some(sonora) => sonora.network.read(cx).lost,
             None => false,
         }
@@ -63,7 +63,7 @@ impl Network {
             return;
         }
         let Some(network) = cx
-            .try_global::<Sonora>()
+            .try_global::<UchanMusic>()
             .map(|sonora| sonora.network.clone())
         else {
             return;
@@ -83,7 +83,7 @@ impl Network {
     /// Notes that something reached the network, which is the quickest way back online.
     pub fn reached(cx: &mut App) {
         let Some(network) = cx
-            .try_global::<Sonora>()
+            .try_global::<UchanMusic>()
             .map(|sonora| sonora.network.clone())
         else {
             return;
@@ -105,7 +105,7 @@ impl Network {
 
     /// Opens a connection to the active provider's host until one succeeds, waiting longer
     /// between tries as they keep failing. Nothing is asked of the host but the connection, and
-    /// it is one the app talks to anyway, so no other service ever learns Sonora is running. A
+    /// it is one the app talks to anyway, so no other service ever learns UchanMusic is running. A
     /// provider that needs no network hands back no host, and then nothing is tried at all.
     fn watch(&mut self, cx: &mut Context<Self>) {
         let io = self.io.clone();

@@ -1,4 +1,4 @@
-//! Apple Music's JSON turned into Sonora's models.
+//! Apple Music's JSON turned into UchanMusic's models.
 //!
 //! Every resource arrives in the same envelope: an `id`, a `type`, an `attributes` object and
 //! sometimes `relationships`. A library resource carries its own id (`i.`, `l.`, `r.`, `p.`)
@@ -467,7 +467,7 @@ pub fn library_artist(value: &Value, id: &str) -> Option<String> {
         .and_then(|row| row.get("id")?.as_str().map(str::to_owned))
 }
 
-/// The uri Sonora knows an Apple item by in the sidebar. It is Spotify-shaped on purpose: a
+/// The uri UchanMusic knows an Apple item by in the sidebar. It is Spotify-shaped on purpose: a
 /// sidebar pin is built by taking what follows the last colon.
 pub fn pin_uri(kind: PinTargetKind, id: &str) -> Option<String> {
     let part = match kind {
@@ -480,7 +480,7 @@ pub fn pin_uri(kind: PinTargetKind, id: &str) -> Option<String> {
 }
 
 /// One library album, artist or playlist as an unpinned pin target. An album or artist needs
-/// the catalog item behind it, whose id is the one Sonora opens.
+/// the catalog item behind it, whose id is the one UchanMusic opens.
 fn pin_target(value: &Value, owner: &str) -> Option<PinTarget> {
     let kind = value.get("type")?.as_str()?;
     let attributes = value.get("attributes")?;

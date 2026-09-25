@@ -12,7 +12,7 @@ use gpui::{Window, canvas, deferred, div, phi, px, relative};
 use i18n::t;
 use input::{ToggleFullscreen, WORKSPACE_CONTEXT};
 use router::{Destination, navigate};
-use state::{AppSettings, Cover, FullscreenControlsAutohide, Playback, Queue, SideTab, Sonora};
+use state::{AppSettings, Cover, FullscreenControlsAutohide, Playback, Queue, SideTab, UchanMusic};
 use ui::{
     ActiveTheme as _, Artwork, Button, ExplicitBadge, InlineLink, InlineLinks, Motion,
     Motioned as _, Popup, Room, Scrollbar, Scrubber, ScrubberState, Springs, TabBar, Text,
@@ -106,11 +106,11 @@ pub struct FullscreenView {
 impl FullscreenView {
     pub fn new(playback: Entity<Playback>, queue: Entity<Queue>, cx: &mut Context<Self>) -> Self {
         cx.observe(&playback, |_, _, cx| cx.notify()).detach();
-        let cover = Sonora::global(cx).cover.clone();
+        let cover = UchanMusic::global(cx).cover.clone();
         cx.observe(&cover, |_, _, cx| cx.notify()).detach();
-        let library = Sonora::global(cx).library.clone();
+        let library = UchanMusic::global(cx).library.clone();
         cx.observe(&library, |_, _, cx| cx.notify()).detach();
-        let settings = Sonora::global(cx).settings.clone();
+        let settings = UchanMusic::global(cx).settings.clone();
         cx.observe(&settings, |_, _, cx| cx.notify()).detach();
         let aside = cx.new(|cx| Aside::new(queue.clone(), playback.clone(), SideTab::Lyrics, cx));
         aside.update(cx, |aside, _| aside.strip());

@@ -2,7 +2,7 @@ use gpui::prelude::*;
 use gpui::{App, Context, Entity, FocusHandle, Global, Render, Window, div};
 use i18n::t;
 use music::Playlist;
-use state::{Shelf, Sonora};
+use state::{Shelf, UchanMusic};
 use ui::{ActiveTheme as _, Button, Modal};
 use ui::{Dismiss, FORM_CONTEXT, Input, Submit};
 
@@ -75,7 +75,7 @@ impl PlaylistEditor {
             window.focus(&focus, cx);
         }
         let name = self.name.read(cx).text().trim().to_owned();
-        let library = Sonora::global(cx).library.clone();
+        let library = UchanMusic::global(cx).library.clone();
 
         match edit {
             Edit::Create { tracks, shelf } if !name.is_empty() => {

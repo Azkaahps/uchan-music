@@ -416,7 +416,7 @@ pub struct Capabilities {
     /// favorites, as on Spotify, and where it is fixed, as on a self-hosted server.
     pub library: bool,
     /// The provider keeps sidebar pins of its own, listed by `pin_targets` and changed
-    /// through `set_pinned`. Off, a pin lives in Sonora's settings alone.
+    /// through `set_pinned`. Off, a pin lives in UchanMusic's settings alone.
     pub pins: bool,
 }
 

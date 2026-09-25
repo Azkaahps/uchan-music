@@ -17,7 +17,7 @@ const COLUMNS: u32 = 2;
 fn path(id: &str, stamp: u32) -> PathBuf {
     dirs::cache_dir()
         .unwrap_or_else(|| PathBuf::from("."))
-        .join("sonora")
+        .join("uchan-music")
         .join("mosaics")
         .join(format!("{}-{stamp}.png", sanitised(id)))
 }

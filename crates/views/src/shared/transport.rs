@@ -1,7 +1,7 @@
 use gpui::prelude::*;
 use gpui::{App, Entity, SharedString, div};
 use i18n::t;
-use state::{Playback, Queue, Repeat, Sonora};
+use state::{Playback, Queue, Repeat, UchanMusic};
 use ui::{ActiveTheme as _, Button};
 
 use crate::shared::ambient;
@@ -24,7 +24,7 @@ pub(crate) fn percent(fraction: f32) -> SharedString {
 
 pub(crate) fn like(track: Option<music::Track>, cx: &App) -> Button {
     let theme = *cx.theme();
-    let library = Sonora::global(cx).library.clone();
+    let library = UchanMusic::global(cx).library.clone();
     let id = track.as_ref().and_then(|track| track.id.as_deref());
     let saved = id.is_some_and(|id| library.read(cx).saved(id));
 

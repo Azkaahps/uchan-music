@@ -8,7 +8,7 @@ use ui::{
 };
 
 actions!(
-    sonora,
+    uchan_music,
     [
         Quit,
         SignOut,
