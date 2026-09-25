@@ -81,6 +81,7 @@ impl Render for AboutView {
                             ),
                     )
                     // 2. Central Heading: "Uchan Music by AzkaaHPS"
+                    .child(
                         div()
                             .flex()
                             .flex_col()
