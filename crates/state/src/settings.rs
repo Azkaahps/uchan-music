@@ -684,8 +684,8 @@ impl AppSettings {
     }
 
     /// Whether the Discord status carries a button that opens the UchanMusic project page.
-    pub fn discord_sonora_button(&self) -> bool {
-        self.values.discord_sonora_button
+    pub fn discord_uchan_button(&self) -> bool {
+        self.values.discord_uchan_button
     }
 
     /// Whether the Discord status carries a button that opens the track on its provider.
