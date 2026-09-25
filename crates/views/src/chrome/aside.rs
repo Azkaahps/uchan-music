@@ -977,7 +977,7 @@ impl Aside {
                     .then(|| settings.romanization_scripts()),
             )
         };
-        let karaoke_effects = karaoke_lyrics && effects();
+        let karaoke_effects = karaoke_lyrics;
         let scale = match self.titled {
             true => self.settings.read(cx).panel_lyrics_scale(),
             false => self.settings.read(cx).fullscreen_lyrics_scale(),
@@ -1018,7 +1018,9 @@ impl Aside {
                 .into_any_element()
         };
         let lines = match (&state, &shown) {
-            (LyricsState::Ready, Some(music::Lyrics::Synced { lines })) => Some(lines.clone()),
+            (LyricsState::Ready, Some(music::Lyrics::Synced { lines })) => {
+                Some(ensure_karaoke_words(lines.clone()))
+            }
             _ => None,
         };
 
@@ -2267,6 +2269,54 @@ fn lifted(row: Div, sung: Sung) -> Div {
 
 fn active_verse_size(verse: Pixels) -> Pixels {
     verse + ACTIVE_VERSE_GROWTH
+}
+
+fn ensure_karaoke_words(lines: std::sync::Arc<[music::LyricsLine]>) -> std::sync::Arc<[music::LyricsLine]> {
+    let needs_synthesis = lines
+        .iter()
+        .any(|line| line.words.as_ref().map_or(true, |words| words.is_empty()));
+    if !needs_synthesis {
+        return lines;
+    }
+    let mut synthesized: Vec<music::LyricsLine> = lines.to_vec();
+    let total = synthesized.len();
+    for i in 0..total {
+        let line = &synthesized[i];
+        if line.words.as_ref().is_some_and(|words| !words.is_empty()) {
+            continue;
+        }
+        let line_start = line.start;
+        let line_end = line.end.unwrap_or_else(|| {
+            if i + 1 < total {
+                synthesized[i + 1].start.max(line_start)
+            } else {
+                line_start + std::time::Duration::from_millis(3500)
+            }
+        });
+        let duration = line_end.saturating_sub(line_start);
+        let raw_words: Vec<&str> = line.text.split_whitespace().collect();
+        if raw_words.is_empty() {
+            continue;
+        }
+        let total_chars: usize = raw_words.iter().map(|w| w.chars().count().max(1)).sum();
+        let total_millis = duration.as_millis().max(400) as f64;
+        let mut cur_millis = 0.0;
+        let mut words = Vec::with_capacity(raw_words.len());
+        for w_str in &raw_words {
+            let char_count = w_str.chars().count().max(1) as f64;
+            let word_duration_ms = (char_count / total_chars as f64) * total_millis;
+            let start = line_start + std::time::Duration::from_millis(cur_millis as u64);
+            cur_millis += word_duration_ms;
+            let end = line_start + std::time::Duration::from_millis(cur_millis as u64);
+            words.push(music::LyricsWord {
+                start,
+                end,
+                text: (*w_str).to_string(),
+            });
+        }
+        synthesized[i].words = Some(words);
+    }
+    std::sync::Arc::from(synthesized)
 }
 
 fn lyrics_parts(line: &str, words: Option<&[music::LyricsWord]>) -> Vec<(String, usize)> {

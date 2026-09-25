@@ -1017,7 +1017,7 @@ impl Render for FullscreenView {
         let theme = *cx.theme();
         let viewport = window.viewport_size();
         let room = Room::of(viewport.width);
-        let split = room.fits(Room::Wide) && self.panel.is_some();
+        let split = room.fits(Room::Roomy) && self.panel.is_some();
         self.watch(window, cx);
         let idle = self.hidden(window, cx);
         let hide = match self.settings.read(cx).fullscreen_controls_autohide() {
