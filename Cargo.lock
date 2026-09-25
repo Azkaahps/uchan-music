@@ -7371,7 +7371,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "sonora"
+name = "uchan-music"
 version = "0.39.0"
 dependencies = [
  "anyhow",

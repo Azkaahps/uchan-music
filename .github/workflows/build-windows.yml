@@ -46,7 +46,7 @@ jobs:
           cache-on-failure: true
 
       - name: build
-        run: cargo build --release --locked --package uchan-music --target ${{ matrix.target }}
+        run: cargo build --release --package uchan-music --target ${{ matrix.target }}
 
       - name: sccache stats
         if: always()
